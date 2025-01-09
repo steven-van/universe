@@ -1,10 +1,10 @@
 import React from "react";
 import { Avatar, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
-import profilePic from "../assets/images/profile_picture.png"
-import { CustomTextField } from "./CustomTextField";
-import Status from "./Status";
-import MessageBubble from "./MessageBubble";
+import profilePic from "../assets/images/profile_picture.png";
+import { CustomTextField } from "../components/CustomTextField";
+import Status from "../components/Status";
+import MessageBubble from "../components/MessageBubble";
 import { useState } from "react";
 
 const ChatSection = () => {

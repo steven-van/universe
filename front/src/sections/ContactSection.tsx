@@ -1,6 +1,6 @@
 import React from "react";
 import { IconButton } from "@mui/material";
-import { CustomTextField } from "./CustomTextField";
+import { CustomTextField } from "../components/CustomTextField";
 import { Icon } from "@iconify/react";
 
 const ContactSection = () => {
