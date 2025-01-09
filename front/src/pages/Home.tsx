@@ -1,7 +1,7 @@
 import React from "react";
-import ChatSection from "../components/ChatSection";
-import ContactSection from "../components/ContactSection";
-import Sidebar from "../components/Sidebar";
+import ChatSection from "../sections/ChatSection";
+import ContactSection from "../sections/ContactSection";
+import Sidebar from "../sections/Sidebar";
 
 const Home = () => {
   return (
