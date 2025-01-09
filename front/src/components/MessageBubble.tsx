@@ -1,11 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-interface MessageBubbleProps {
-    children: any,
-    fromMe: boolean,
-}
-const MessageBubble = ({ children, fromMe }: MessageBubbleProps) => {
+const MessageBubble = ({ children, fromMe }) => {
   const [isFromMe] = useState(fromMe);
 
   return (
