@@ -17,6 +17,10 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  function checkLogin(){
+    navigate("/home");
+  }
+  
   return (
     <div className="container bg-white h-full w-full flex flex-col justify-center items-center">
       <div className="w-1/4 min-w-80 flex flex-col justify-center items-center rounded-2xl shadow-xl">
@@ -37,7 +41,7 @@ const Login = () => {
             value={password}
           />
           <CustomLink href="https://google.com">Forgot password ?</CustomLink>
-          <LoginButton onClick={() => navigate("/home")} variant="contained">
+          <LoginButton onClick={checkLogin} variant="contained">
             Login
           </LoginButton>
         </div>
