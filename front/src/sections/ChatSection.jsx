@@ -29,7 +29,7 @@ const ChatSection = () => {
   ]);
 
   const [message, setMessage] = useState("");
-
+  const username = localStorage.getItem('username');
   const handleSend = () => {
     if (message) {
       setMessagesList([
@@ -51,7 +51,7 @@ const ChatSection = () => {
           sx={{ width: 60, height: 60, borderRadius: "20px" }}
         />
         <div className="flex flex-col">
-          <p className="font-robotoBold">Steven VAN</p>
+          <p className="font-robotoBold">{username}</p>
           <Status />
         </div>
       </div>

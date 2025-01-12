@@ -44,9 +44,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`userID`, `name`, `email`, `password`, `createdAt`, `updatedAt`) VALUES
-(1, 'johnDoeee', 'johndoe@example.com', 'mypassword', '2025-01-11 14:10:18', '2025-01-11 14:10:18'),
-(3, 'bastooooos', 'bastoooosososo', 'mypassword', '2025-01-11 14:11:33', '2025-01-11 14:11:33'),
-(4, 'steven', 'steveveennene', 'mypassword', '2025-01-11 14:20:43', '2025-01-11 14:20:43');
+(6, 'Nana SIU', 'nanananananan@gmail.com', '$2b$10$q1Cl4/jNF4JVaethrzA3QuTce/I5zCJwgmixyr.JeBCaNQnf/9Hfa', '2025-01-12 13:51:40', '2025-01-12 13:51:40'),
+(7, 'Steven Vanne', 'vanilla@gmail.com', '$2b$10$Wwnybowlje/m3U2TZ9tiA.6XCrh1TOt17wTA4.J7lilIanzQnn/Vm', '2025-01-12 13:52:15', '2025-01-12 13:52:15'),
+(8, 'Bastien récré', 'maracasse@gmail.com', '$2b$10$9WCjo75v.uo1959nntyeluoUsaUjxdQvKfL3kBbYuGBkt19U0EasW', '2025-01-12 13:52:49', '2025-01-12 13:52:49'),
+(9, 'Louis41', 'pasdechance@gmail.com', '$2b$10$GdkGUYr5Cq6M.jNa5QuDN.U/g2T44KhpoNtpY9po5aCKGKrm4JfJS', '2025-01-12 13:54:32', '2025-01-12 13:54:32');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
