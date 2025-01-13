@@ -7,6 +7,8 @@ const con = require("../config/connection");
 const cors = require('cors');
 const User = require("../src/models/User");
 const authRoute = require('./routes/auth');
+const messageRoutes = require('./routes/messageRoutes');
+
 
 app.use(cors({
   origin: "http://localhost:5173", 
@@ -36,6 +38,9 @@ try {
 app.get('/', (req, res) => {
   res.send('Hello World')
 })
+
+
+app.use(messageRoutes);
 
 // A utiliser pour la page inscription
 app.post('/users', async (req, res) => {
