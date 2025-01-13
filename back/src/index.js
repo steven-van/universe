@@ -3,9 +3,11 @@ const app = express();
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 8000;
 const con = require("../config/connection");
-const cors = require("cors");
-const authRoutes = require("./routes/authRoutes");
-const contactRoutes = require("./routes/contactRoutes");
+const cors = require('cors');
+const User = require("../src/models/User");
+const authRoute = require('./routes/auth');
+const messageRoutes = require('./routes/messageRoutes');
+
 
 app.use(
   cors({
