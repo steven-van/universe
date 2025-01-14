@@ -3,10 +3,14 @@ const app = express();
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 8000;
 const con = require("../config/connection");
-const cors = require('cors');
-const User = require("../src/models/User");
-const authRoute = require('./routes/auth');
+const cors = require("cors");
+const http = require("http");
+const authRoutes = require("./routes/authRoutes");
 const messageRoutes = require('./routes/messageRoutes');
+const { initializeSocket } = require("./socket");
+
+const server = http.createServer(app);
+
 
 
 app.use(
@@ -37,3 +41,12 @@ try {
 } catch (error) {
   console.log("Unable to connect to the database:", error);
 }
+
+initializeSocket(server);
+
+server.listen(port, () => {
+  console.log(`Server app listening on port ${port}`);
+});
+
+app.use(messageRoutes);
+
