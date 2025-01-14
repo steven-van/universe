@@ -34,7 +34,7 @@ const Message = con.define('Message', {
     },
   }, {
     tableName: 'message', // Nom de la table dans la base de données
-    timestamps: false, 
+    timestamps: false, // Désactive la gestion automatique des timestamps
   });
   
-  module.exports = Message; // Pour exporter l'entité
+  module.exports = Message;
