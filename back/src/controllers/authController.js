@@ -1,5 +1,5 @@
 const authService = require("../services/authService");
-const io = require('../socket.io');
+const socket = require('../socket.js');
 
 exports.signup = async (req, res) => {
   const { firstname, lastname, email, password, birthday, phone } = req.body;

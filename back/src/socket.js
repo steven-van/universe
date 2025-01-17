@@ -1,16 +1,16 @@
 const { Server } = require("socket.io");
-const { createServer } = require("http");
-
 
 let io; // Stocke l'instance du serveur Socket.IO
-const users = {}; // Stocke les utilisateurs connectés
-const sockets = {}; // Stocke les sockets des utilisateurs connectés
+let usernames = []; // list all usernames 
+const users = {}; 
+const sockets = {}; 
 
 const initializeSocket = (server) => {
 
+    console.log(`Initializing IO server`);
     io = new Server(server, {
       cors: {
-        origin: "http://localhost:3000", 
+        origin: "http://localhost:5173", 
       },
     });
   
@@ -21,51 +21,102 @@ const initializeSocket = (server) => {
         
 
         socket.on("login", (username) => {
-            users[username] = socket.id; // Associe le socket ID à l'username
-            sockets[socket.id] = username; // Associe le username au socket ID
+            users[username] = socket.id; // link the username to the socket ID
+            sockets[socket.id] = username; // link the socket ID to the username
+            usernames.push(username); // add the username to the list
 
             console.log(`${username} logged in with socket ID: ${socket.id}`);
-            io.emit("update-user-list", Object.keys(users)); // Diffuse la liste des utilisateurs connectés
+
+            socket.join("default"); // test
+
+            socket.emit('welcome', { username });
+
+            io.emit("update-user-list", Object.keys(users)); // all user connected
+            console.log(`All connected users : ${usernames}`);
           });
 
-        // quand un user se deconnecte
+        // when the user disconnect
         socket.on("disconnect", () => {
             
             const username = sockets[socket.id];
             console.log(`${username} logged out`);
-            delete sockets[socket.id]; // Supprime le socket ID de la liste
-            delete users[username]; // Supprime le username de la liste
 
-            console.log(usernames);
+            const index = usernames.indexOf(username);
+            if (index !== -1) {
+                usernames.splice(index, 1);
+            }
+            delete sockets[socket.id]; // delete the socket from the list
+            delete users[username]; // delete the user from the list
+
+            console.log( Object.keys(users));
           });
+        
+        socket.on("logout", (username) => {
 
-        socket.on("say to someone", (id, msg) => {
+          if (users[username]) {
+              console.log(`${username} logged out`);
+              // Supprime les données utilisateur
+              delete sockets[users[username]];
+              delete users[username];
+      
+              const index = usernames.indexOf(username);
+              if (index !== -1) {
+                  usernames.splice(index, 1);
+              }
+      
+              // Informe les autres clients
+              io.emit("update-user-list", Object.keys(users));
+              console.log(`${username} s'est déconnecté via logout.`);
+              console.log(`All connected users : ${usernames}`);
+          }});
+        
+
+        socket.on("say to someone", (username, msg) => {
             // send a private message to the socket with the given id
             socket.to(id).emit("my message", msg);
-            });
+          });
 
-        socket.on("send-private-message", ({ tosomeone, message }) => {
+        socket.on("list-connected-users", (arg1, callback) => {
+            console.log(users)
+            callback(
+              {users: Object.keys(users)
 
-            const fromUsername = sockets[socket.id]; // Récupère l'expéditeur
-            const toSocketId = users[tosomeone]; // Trouve le socket ID du destinataire
-            
-            if (toSocketId) {
-                const timestamp = new Date().toLocaleTimeString(); // Horodatage du message
-                io.to(toSocketId).emit("receive-private-message", {
-                from: fromUsername,
-                text: message,
-                timestamp,
-                });
-                console.log(`Message from ${fromUsername} to ${toUsername}: ${message}`);
-            } else {
-                console.log(`User ${toUsername} not found.`);
-            }
+              });
+          });
+
+        socket.on("send-message", (receiver, message) => {
+          console.log(users)
+          console.log((`${sockets[socket.id]} is trying to send a message.`))
+
+          socket_id_receiver = users[receiver]; 
+          console.log(socket_id_receiver)
+          
+          sender = sockets[socket.id]
+
+          if (receiver) {
+
+            // user connected
+            socket.to(socket_id_receiver).emit("receive-message", {
+              sender,
+              message,
             });
+            console.log(`Message from ${sender} to ${receiver}: ${message}`);
+          } else {
+            // Le destinataire n'est pas connecté
+            console.log(`Message from ${sender} to ${receiver} failed: User not connected`);
+          }
+          
+        });
 
     });
   };
 
-module.exports = { initializeSocket };
+const getSocketIo = () => {
+    if (!io) throw new Error("Socket.IO not initialized");
+    return io;
+  };
+
+module.exports = { initializeSocket, getSocketIo };
 
   // si on a une valeur dans le form on l'envoie sur socket io
 // if (input.value) {
