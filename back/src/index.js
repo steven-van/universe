@@ -1,26 +1,32 @@
 const express = require("express");
 const app = express();
+
 const bodyParser = require("body-parser");
 const port = process.env.PORT || 8000;
 const con = require("../config/connection");
 const cors = require("cors");
 const http = require("http");
+
 const authRoutes = require("./routes/authRoutes");
 const messageRoutes = require('./routes/messageRoutes');
-const { initializeSocket } = require("./socket");
 
-const server = http.createServer(app);
-
+const socket = require("./socket");
 
 app.use(
   cors({
     origin: "http://localhost:5173",
   })
 );
+
+const server = http.createServer(app);
+
+socket.initializeSocket(server);
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(authRoutes);
+app.use(messageRoutes);
 
 try {
   con.authenticate();
@@ -33,18 +39,10 @@ try {
     .catch((error) => {
       console.error("Error during sync:", error);
     });
-  app.listen(port, () => {
+  server.listen(port, () => {
     console.log(`Server app listening on port ${port}`);
   });
 } catch (error) {
   console.log("Unable to connect to the database:", error);
 }
-
-initializeSocket(server);
-
-server.listen(port, () => {
-  console.log(`Server app listening on port ${port}`);
-});
-
-app.use(messageRoutes);
 

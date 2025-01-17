@@ -1,5 +1,5 @@
 const authService = require("../services/authService");
-const io = require('../socket.io');
+const socket = require('../socket.js');
 
 exports.signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -18,7 +18,9 @@ exports.login = async (req, res) => {
     const token = await authService.login({ name, password });
     
     // Socket creation for this user
-    io.emit('login', name);
+    
+    const io = socket.getSocketIo(); // Recup socket io
+    io.emit('login', { user: name });
 
     return res.status(200).json({ token });
   } catch (error) {
