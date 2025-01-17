@@ -1,4 +1,6 @@
 const { Server } = require("socket.io");
+const messageController = require("./controllers/messageController");
+const BodyguardAPI = require("./bodyguardAPI");
 
 let io; // Stocke l'instance du serveur Socket.IO
 let usernames = []; // list all usernames 
@@ -84,24 +86,35 @@ const initializeSocket = (server) => {
               });
           });
 
-        socket.on("send-message", (receiver, message) => {
-          console.log(users)
-          console.log((`${sockets[socket.id]} is trying to send a message.`))
+        socket.on("send-message", (receiver, message ) => {
+
+          // enregistre en bdd
+          // ici on fait toutes les fonctions qu'on veut 
+          // on envoie a BODCYGUARDAPI
+
+          const currentDate_message = new Date();
+          response = BodyguardAPI.analyzeMessage(message, currentDate_message);
+          
+          console.log(response);  
+
+          console.log(users);
+          console.log((`${sockets[socket.id]} is trying to send a message.`));
 
           socket_id_receiver = users[receiver]; 
-          console.log(socket_id_receiver)
+          console.log(socket_id_receiver);
           
           sender = sockets[socket.id]
 
-          if (receiver) {
-
+          if (socket_id_receiver) {
+            
             // user connected
             socket.to(socket_id_receiver).emit("receive-message", {
               sender,
               message,
             });
             console.log(`Message from ${sender} to ${receiver}: ${message}`);
-          } else {
+          } 
+          else {
             // Le destinataire n'est pas connecté
             console.log(`Message from ${sender} to ${receiver} failed: User not connected`);
           }
