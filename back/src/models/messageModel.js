@@ -30,7 +30,7 @@ const Message = con.define('Message', {
     },
     conversationID: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
   }, {
     tableName: 'message', // Nom de la table dans la base de données

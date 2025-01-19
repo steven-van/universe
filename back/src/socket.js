@@ -1,6 +1,7 @@
 const { Server } = require("socket.io");
 const messageController = require("./controllers/messageController");
 const BodyguardAPI = require("./bodyguardAPI");
+const messageService = require("./services/messageService");
 
 let io; // Stocke l'instance du serveur Socket.IO
 let usernames = []; // list all usernames 
@@ -72,12 +73,6 @@ const initializeSocket = (server) => {
               console.log(`All connected users : ${usernames}`);
           }});
         
-
-        socket.on("say to someone", (username, msg) => {
-            // send a private message to the socket with the given id
-            socket.to(id).emit("my message", msg);
-          });
-
         socket.on("list-connected-users", (arg1, callback) => {
             console.log(users)
             callback(
@@ -86,41 +81,46 @@ const initializeSocket = (server) => {
               });
           });
 
-        socket.on("send-message", (receiver, message ) => {
-
-          // enregistre en bdd
-          // ici on fait toutes les fonctions qu'on veut 
-          // on envoie a BODCYGUARDAPI
+        socket.on("send-message", async (receiver, message ) => {
 
           const currentDate_message = new Date();
-          response = BodyguardAPI.analyzeMessage(message, currentDate_message);
+          const response = await BodyguardAPI.analyzeMessage(message, currentDate_message);
           
+          const recommendedAction = response.data[0].recommendedAction
+          const type = response.data[0].type
+
           console.log(response);  
 
           console.log(users);
           console.log((`${sockets[socket.id]} is trying to send a message.`));
 
-          socket_id_receiver = users[receiver]; 
-          console.log(socket_id_receiver);
-          
-          sender = sockets[socket.id]
-
-          if (socket_id_receiver) {
-            
-            // user connected
-            socket.to(socket_id_receiver).emit("receive-message", {
-              sender,
-              message,
-            });
-            console.log(`Message from ${sender} to ${receiver}: ${message}`);
-          } 
-          else {
-            // Le destinataire n'est pas connecté
-            console.log(`Message from ${sender} to ${receiver} failed: User not connected`);
+          if (recommendedAction == 'REMOVE') {
+            console.log(`Message from ${sockets[socket.id]} to ${receiver} failed: Message refused by Bodyguard because type : ${type} `);
+            console.log(`Message from not saved in the database`);
+            return;
           }
-          
-        });
+          else{
+            socket_id_receiver = users[receiver];           
+            sender = sockets[socket.id]
 
+            if (socket_id_receiver) {
+              
+              // user connected
+              socket.to(socket_id_receiver).emit("receive-message", {
+                sender,
+                message,
+              });
+              
+              console.log(`Message from ${sender} to ${receiver}: ${message}`);
+              await messageService.createmessage({ texte_message: message, status_message: type,expediteurID:socket.id, destinataireID: socket_id_receiver });
+              console.log(`Message from ${sender} to ${receiver} saved in the database`);
+            } 
+            else {
+              // Le destinataire n'est pas connecté
+              console.log(`Message from ${sender} to ${receiver} failed: User not connected`);
+            }
+            }
+        });
     });
   };
 
