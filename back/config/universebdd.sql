@@ -39,17 +39,17 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
--- Structure de la table `friend`
-DROP TABLE IF EXISTS `friend`;
-CREATE TABLE IF NOT EXISTS `friend` (
+-- Structure de la table `contact`
+DROP TABLE IF EXISTS `contact`;
+CREATE TABLE IF NOT EXISTS `contact` (
   `id` int NOT NULL AUTO_INCREMENT,
   `userID` int NOT NULL,
-  `friendID` int NOT NULL,
+  `contactID` int NOT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`userID`) REFERENCES `user`(`userID`),
-  FOREIGN KEY (`friendID`) REFERENCES `user`(`userID`)
+  FOREIGN KEY (`contactID`) REFERENCES `user`(`userID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
 --

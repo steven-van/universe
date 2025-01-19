@@ -1,6 +1,6 @@
 const { DataTypes } = require("sequelize");
 const con = require("../../config/connection");
-const Friend = require("./friendModel");
+const Contact = require("./contactModel");
 
 const User = con.define(
   "User",
@@ -30,7 +30,7 @@ const User = con.define(
 );
 
 // Define associations
-User.hasMany(Friend, { as: 'friendOf', foreignKey: 'friendID' });
-Friend.belongsTo(User, { as: 'friendUser', foreignKey: 'friendID' });
+User.hasMany(Contact, { as: 'contactOf', foreignKey: 'contactID' });
+Contact.belongsTo(User, { as: 'contactUser', foreignKey: 'contactID' });
 
 module.exports = User;

@@ -5,7 +5,7 @@ const port = process.env.PORT || 8000;
 const con = require("../config/connection");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
-const friendRoutes = require("./routes/friendRoutes");
+const contactRoutes = require("./routes/contactRoutes");
 
 app.use(
   cors({
@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(authRoutes);
-app.use(friendRoutes);
+app.use(contactRoutes);
 
 try {
   con.authenticate();
