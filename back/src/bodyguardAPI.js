@@ -15,8 +15,8 @@ const analyzeMessage = async (text, time) => {
     channelId: '1405e364-f464-479a-89f0-031f68242a71',
     contents: [
       {
-        text,
-        time,
+        text: text,
+        publishedAt: time,
       },
     ],
   });
@@ -30,16 +30,14 @@ const analyzeMessage = async (text, time) => {
 	}
   try {
 
-    const response = await fetch('https://bamboo.bodyguard.ai/api/analyze', {requestOptions});
-
+    const response = await fetch(url, requestOptions);
 	if (!response.ok) {
-        const rawResponse = await resp.text();
+        const rawResponse = await response.text();
         console.error('Raw API Response:', rawResponse);
-        throw new Error(`API responded with status ${resp.status}`);
+        throw new Error(`API responded with status ${response.status}`);
     }
 
-    const json = await resp.json();
-    console.log('API Response:', json);
+    const json = await response.json();
     return json;
 
   } catch (error) {
