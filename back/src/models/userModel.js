@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const con = require("../../config/connection");
+const Friend = require("./friendModel");
 
 const User = con.define(
   "User",
@@ -27,5 +28,9 @@ const User = con.define(
     tableName: "user", // Nom de la table dans la base de données
   }
 );
+
+// Define associations
+User.hasMany(Friend, { as: 'friendOf', foreignKey: 'friendID' });
+Friend.belongsTo(User, { as: 'friendUser', foreignKey: 'friendID' });
 
 module.exports = User;
