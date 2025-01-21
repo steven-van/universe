@@ -1,5 +1,6 @@
 const { DataTypes } = require("sequelize");
 const con = require("../../config/connection");
+const Contact = require("./contactModel");
 
 const User = con.define(
   "User",
@@ -27,5 +28,9 @@ const User = con.define(
     tableName: "user", // Nom de la table dans la base de données
   }
 );
+
+// Define associations
+User.hasMany(Contact, { as: 'contactOf', foreignKey: 'contactID' });
+Contact.belongsTo(User, { as: 'contactUser', foreignKey: 'contactID' });
 
 module.exports = User;
