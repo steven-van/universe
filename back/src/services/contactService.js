@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const Contact = require("../models/contactModel");
 const User = require("../models/userModel");
 
@@ -8,17 +9,24 @@ exports.addContact = async (userID, contactID) => {
   
 exports.getContacts = async (userID) => {
   const contacts = await Contact.findAll({
-    where: { userID },
-    attributes: ['contactID'] // On récupère uniquement les contactID
+    where: {
+      [Op.or]: [
+        { userID: userID }, // Matches if userID is userID
+        { contactID: userID }, // Matches if userID is contactID
+      ],
+    },
+    attributes: ['userID', 'contactID']
   });
 
-  const contactIDs = contacts.map(contact => contact.contactID);
+  const contactIDs = contacts.map(contact => {
+    return contact.userID == userID ? contact.contactID : contact.userID;
+  }) // Only retrieves the ID that is different from userID passed in parameter
 
   const contactUsers = await User.findAll({
     where: {
       userID: contactIDs
     },
-    attributes: ['userID', 'name', 'email'] // On veut récupérer ces attributs du contact
+    attributes: ['userID', 'name', 'email'] // Only retrieves userID, name, email
   });
 
   return contactUsers;
