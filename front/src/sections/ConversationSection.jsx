@@ -1,8 +1,8 @@
 import React from "react";
-import { IconButton, Avatar } from "@mui/material";
+import { IconButton } from "@mui/material";
 import { CustomTextField } from "../components/CustomTextField";
 import { Icon } from "@iconify/react";
-import Conversation from "../components/Contact";
+import Conversation from "../components/Conversation";
 
 const ConversationSection = () => {
   return (
