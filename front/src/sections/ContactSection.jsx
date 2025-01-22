@@ -6,7 +6,7 @@ import Contact from "../components/Contact";
 
 const ContactSection = () => {
   return (
-    <div className="h-full flex">
+    <div className="min-w-80 h-full flex">
       <div className="w-full h-full flex flex-col border-r border-D8D8D8">
         <div className="flex flex-row justify-between items-center space-x-2 p-4">
           <CustomTextField fullWidth={true} label="Recherche" />

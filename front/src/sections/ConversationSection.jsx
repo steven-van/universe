@@ -6,7 +6,7 @@ import Conversation from "../components/Conversation";
 
 const ConversationSection = () => {
   return (
-    <div className="h-full flex">
+    <div className="min-w-80 h-full flex">
       <div className="w-full h-full flex flex-col p-4 border-r border-D8D8D8">
         <div className="flex flex-row justify-between items-center space-x-2">
           <CustomTextField fullWidth={true} label="Recherche" />
@@ -19,7 +19,7 @@ const ConversationSection = () => {
             />
           </IconButton>
         </div>
-        <div className="min-w-80 flex flex-col mt-4">
+        <div className="flex flex-col mt-4">
           <Conversation />
           <Conversation />
           <Conversation />
@@ -27,6 +27,7 @@ const ConversationSection = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 
