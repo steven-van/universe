@@ -9,6 +9,8 @@ module.exports = {
         'D8D8D8': "#D8D8D8",
         'BDBABA': "#BDBABA",
         'ACA9E721': "#ACA9E721",
+        '8F8F8F': "#8F8F8F",
+        
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'], 
