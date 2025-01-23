@@ -81,19 +81,51 @@ CREATE TABLE IF NOT EXISTS `message` (
 --
 
 INSERT INTO `message` (`messageID`, `texte_message`, `date_message`, `status_message`, `expediteurID`, `destinataireID`, `conversationID`) VALUES
--- Conversation 1 entre Nana SIU et Steven Vanne
+-- Message entre Nana SIU et Steven Vanne
 (1, 'Steven j`taime pas', '2025-01-12 14:10:00', NULL, 6, 7, 1),
 (2, 'Nana casse toi la puante', '2025-01-12 14:12:00', NULL, 7, 6, 1),
 
--- Conversation 2 entre Bastien récré et Louis41
+-- Message entre Bastien récré et Louis41
 (3, 'Louis j`ai encore ajouté 100 euros sur cardmarket', '2025-01-12 15:00:00', NULL, 8, 9, 2),
 (4, 'Bastien là je trouve que tu abuses quand même t`auras pas Amphinobi ', '2025-01-12 15:05:00', NULL, 9, 8, 2),
 
--- Conversation 3 entre Steven Vanne et Bastien récré
+-- Message entre Steven Vanne et Bastien récré
 (5, 'Bastien viens on va voir KISS OF LIFE', '2025-01-12 16:00:00', NULL, 7, 8, 3),
 (6, 'Vsy quand tu veux on va matter des boules', '2025-01-12 16:15:00', NULL, 8, 7, 3),
 
--- Conversation 4 entre Nana SIU et Louis41
+-- Message entre Nana SIU et Louis41
 (7, 'Louis, viens me faire des bisous sinon je boude !', '2025-01-12 16:30:00', NULL, 6, 9, 4),
 (8, 'Ca yèst les meufs que ça prend la tête pour rien..', '2025-01-12 16:40:00', NULL, 9, 6, 4);
+COMMIT;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `conversation`
+--
+
+DROP TABLE IF EXISTS `conversation`;
+CREATE TABLE IF NOT EXISTS `conversation`(
+  `conversationID` INT NOT NULL AUTO_INCREMENT,
+  `user1ID` INT NOT NULL,
+  `user2ID` INT NOT NULL,
+  PRIMARY KEY (`conversationID`),
+  FOREIGN KEY (`user1ID`) REFERENCES `user`(`userID`),
+  FOREIGN KEY (`user2ID`) REFERENCES `user`(`userID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+
+--
+-- Déchargement des données de la table `conversation`
+--
+
+INSERT INTO `conversation` (`conversationID`, `user1ID`, `user2ID`) VALUES
+-- Conversation entre nana et steven
+(1, 6, 7),
+-- Conversation entre Bastien et Louis
+(2, 8, 9),
+-- Conversation entre Steven et Bastien
+(3, 7, 8),
+-- Conversation entre Nana et Louis
+(4, 6, 9);
 COMMIT;

@@ -81,7 +81,7 @@ const initializeSocket = (server) => {
               });
           });
 
-        socket.on("send-message", async (receiver, message ) => {
+        socket.on("send-message", async (receiver, message, sender_id, receiver_id, conversation_id ) => {
 
           const currentDate_message = new Date();
           const response = await BodyguardAPI.analyzeMessage(message, currentDate_message);
@@ -112,7 +112,8 @@ const initializeSocket = (server) => {
               });
               
               console.log(`Message from ${sender} to ${receiver}: ${message}`);
-              await messageService.createmessage({ texte_message: message, status_message: type,expediteurID:socket.id, destinataireID: socket_id_receiver });
+              //création en base de données
+              await messageService.createmessage({ texte_message: message, status_message: type,expediteurID: socket.id, destinataireID: socket_id_receiver, conversationID: conversation_id });
               console.log(`Message from ${sender} to ${receiver} saved in the database`);
             } 
             else {
