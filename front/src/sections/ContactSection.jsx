@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { IconButton } from "@mui/material";
 import { CustomTextField } from "../components/CustomTextField";
 import { Icon } from "@iconify/react";
 import Contact from "../components/Contact";
+import { AuthContext } from "../contexts/AuthProvider";
+import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
 
 const ContactSection = () => {
+  const { authToken } = useContext(AuthContext);
+  const [contacts, setContacts] = useState([]);
+
+  const getUserIdFromToken = (token) => {
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        return decoded.userID;
+      } catch (err) {
+        console.error('Invalid token', err);
+        return null;
+      }
+    }
+    return null;
+  };
+
+  const getUserContacts = async (token) => {
+    const userID = getUserIdFromToken(token);
+    const response = await axios.get(`http://localhost:8000/contacts/${userID}`);
+    setContacts(response.data);
+  }
+
+  useEffect(() => {
+    getUserContacts(authToken);
+  }, [])
+
   return (
     <div className="min-w-80 h-full flex">
       <div className="w-full h-full flex flex-col border-r border-D8D8D8">
@@ -25,12 +54,10 @@ const ContactSection = () => {
 
         </div>
         <div className="min-w-80 flex flex-col mt-4 px-4">
-          <Contact/>
-          <Contact/>
-          <Contact/>
-          <Contact/>
+          {contacts.map((contact) => {
+            return <Contact contact={contact}/>
+          })}
 
-          
         </div>
       </div>
     </div>
