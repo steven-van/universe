@@ -68,7 +68,6 @@ const Sidebar = () => {
           </IconButton>
         ) : (
           <IconButton
-            onClick={() => setActiveItem(MENU_ITEMS.INFOS)}
             color="inherit"
           >
             <Icon icon="solar:info-circle-linear" width="30" height="30" />
@@ -86,7 +85,6 @@ const Sidebar = () => {
           </IconButton>
         ) : (
           <IconButton
-            onClick={() => setActiveItem(MENU_ITEMS.SETTINGS)}
             color="inherit"
           >
             <Icon icon="solar:settings-linear" width="30" height="30" />
