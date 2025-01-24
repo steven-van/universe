@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import ChatSection from "../sections/ChatSection";
-import Sidebar from "../sections/Sidebar";
-import ConversationSection from "../sections/ConversationSection";
 import ContactSection from "../sections/ContactSection";
-import { MenuContext } from "../contexts/MenuContext";
 import { MENU_ITEMS } from "../enums";
+import UserInfoSection from "../sections/UserInfoSection";
+import { MenuContext } from "../contexts/MenuContext";
 
 const Home = () => {
-  const [activeItem, setActiveItem] = useState(MENU_ITEMS.CONVERSATIONS);
+  const [activeItem] = useContext(MenuContext);
+
 
   return (
     <div className="container bg-white w-full h-full flex flex-row justify-center items-center">
-      <MenuContext.Provider value={[activeItem, setActiveItem]}>
-        <Sidebar />
-        {activeItem === MENU_ITEMS.CONVERSATIONS && <ConversationSection />}
-        {activeItem === MENU_ITEMS.CONTACTS && <ContactSection />}
-        <ChatSection />
-      </MenuContext.Provider>
+      <Sidebar />
+      {activeItem === MENU_ITEMS.CONVERSATIONS && (
+        <>
+          <ConversationSection />
+          <ChatSection />
+        </>
+      )}
+      {activeItem === MENU_ITEMS.CONTACTS && (
+        <>
+          <ContactSection />
+          <UserInfoSection />
+        </>
+      )}
     </div>
   );
 };
