@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import ChatSection from "../sections/ChatSection";
 import ContactSection from "../sections/ContactSection";
+import ConversationSection from "../sections/ConversationSection";
+import Sidebar from "../sections/Sidebar";
 import { MENU_ITEMS } from "../enums";
 import UserInfoSection from "../sections/UserInfoSection";
 import { MenuContext } from "../contexts/MenuContext";
