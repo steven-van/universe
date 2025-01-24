@@ -11,6 +11,7 @@ const authRoutes = require("./routes/authRoutes");
 const messageRoutes = require('./routes/messageRoutes');
 
 const socket = require("./socket");
+const contactRoutes = require("./routes/contactRoutes");
 
 app.use(
   cors({
@@ -27,6 +28,7 @@ app.use(express.json());
 
 app.use(authRoutes);
 app.use(messageRoutes);
+app.use(contactRoutes);
 
 try {
   con.authenticate();
