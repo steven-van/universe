@@ -4,20 +4,20 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login.jsx";
 import Home from "./pages/Home.jsx";
 import { MenuProvider } from "./contexts/MenuContext";
-import { AuthProvider } from "./contexts/AuthProvider";
+import AuthProvider from "./contexts/AuthProvider";
 
 function App() {
   return (
-    <AuthProvider>
-      <MenuProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
+        <MenuProvider>
           <Routes>
             <Route path="login" element={<Login />} />
             <Route path="home" element={<Home />} />
           </Routes>
-        </BrowserRouter>
-      </MenuProvider>
-    </AuthProvider>
+        </MenuProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

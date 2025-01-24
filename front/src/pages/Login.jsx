@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button, styled } from "@mui/material";
 import { CustomTextField } from "../components/CustomTextField";
 import { CustomLink } from "../components/CustomLink";
-import { handleLogin } from "../controllers/authController";
+import { useAuth } from "../contexts/AuthProvider";
 
 const LoginButton = styled(Button)(() => ({
   backgroundColor: "#645CF4",
@@ -16,7 +15,7 @@ const LoginButton = styled(Button)(() => ({
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const {login} = useAuth();
   
   return (
     <div className="container bg-white h-full w-full flex flex-col justify-center items-center">
@@ -38,7 +37,7 @@ const Login = () => {
             value={password}
           />
           <CustomLink href="https://google.com">Forgot password ?</CustomLink>
-          <LoginButton onClick={() => handleLogin(username, password, navigate)} variant="contained">
+          <LoginButton onClick={() => login(username,password)} variant="contained">
             Login
           </LoginButton>
         </div>
