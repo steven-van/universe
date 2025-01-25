@@ -4,35 +4,19 @@ import { CustomTextField } from "../components/CustomTextField";
 import { Icon } from "@iconify/react";
 import Contact from "../components/Contact";
 import { AuthContext } from "../contexts/AuthProvider";
-import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 import ContactInfoSection from "./ContactInfoSection";
 import { CONTACTS_MENU } from "../enums";
+import { getUserContactsService } from "../services/contactService";
 
 const ContactSection = () => {
-  const { authToken } = useContext(AuthContext);
+  const { authToken, getUserIdFromToken } = useContext(AuthContext);
   const [contacts, setContacts] = useState([]);
   const [activeItem, setActiveItem] = useState(CONTACTS_MENU.CONTACTS);
 
-  const getUserIdFromToken = (token) => {
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        return decoded.userID;
-      } catch (err) {
-        console.error("Invalid token", err);
-        return null;
-      }
-    }
-    return null;
-  };
-
   const getUserContacts = async (token) => {
     const userID = getUserIdFromToken(token);
-    const response = await axios.get(
-      `http://localhost:8000/contacts/${userID}`
-    );
-    setContacts(response.data);
+    const contacts = await getUserContactsService(userID);
+    setContacts(contacts);
   };
 
   useEffect(() => {

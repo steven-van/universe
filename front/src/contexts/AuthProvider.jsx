@@ -2,6 +2,7 @@ import React, { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginService } from "../services/authService";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
@@ -30,6 +31,19 @@ const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  const getUserIdFromToken = (token) => {
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        return decoded.userID;
+      } catch (err) {
+        console.error("Invalid token", err);
+        return null;
+      }
+    }
+    return null;
+  };
+
   useEffect(() => {
     if (authToken) {
       axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
@@ -37,7 +51,7 @@ const AuthProvider = ({ children }) => {
   }, [authToken]);
 
   return (
-    <AuthContext.Provider value={{ authToken, login, logout }}>
+    <AuthContext.Provider value={{ authToken, login, logout, getUserIdFromToken }}>
       {children}
     </AuthContext.Provider>
   );
