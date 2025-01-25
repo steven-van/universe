@@ -1,0 +1,35 @@
+[
+    {
+      "userId": 1,
+      "contactId": 2
+    },
+    {
+      "userId": 1,
+      "contactId": 3
+    },
+    {
+      "userId": 2,
+      "contactId": 1
+    },
+    {
+      "userId": 2,
+      "contactId": 3
+    },
+    {
+      "userId": 3,
+      "contactId": 1
+    },
+    {
+      "userId": 3,
+      "contactId": 2
+    },
+    {
+      "userId": 4,
+      "contactId": 5
+    },
+    {
+      "userId": 5,
+      "contactId": 4
+    }
+  ]
+  

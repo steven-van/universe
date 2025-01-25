@@ -1,0 +1,59 @@
+[
+    {
+      "messageId": 1,
+      "conversationId": 1,
+      "senderId": 1,
+      "messageText": "Hey Bob, how's it going?",
+      "timestamp": "2025-01-10 10:05:00"
+    },
+    {
+      "messageId": 2,
+      "conversationId": 1,
+      "senderId": 2,
+      "messageText": "Hey Alice, I'm doing well, thanks!",
+      "timestamp": "2025-01-10 10:07:00"
+    },
+    {
+      "messageId": 3,
+      "conversationId": 2,
+      "senderId": 1,
+      "messageText": "Hi Carol! Are we still on for lunch?",
+      "timestamp": "2025-01-12 14:35:00"
+    },
+    {
+      "messageId": 4,
+      "conversationId": 2,
+      "senderId": 3,
+      "messageText": "Yes, absolutely! See you at noon!",
+      "timestamp": "2025-01-12 14:36:00"
+    },
+    {
+      "messageId": 5,
+      "conversationId": 3,
+      "senderId": 4,
+      "messageText": "Good morning Eve! Did you finish the report?",
+      "timestamp": "2025-01-15 08:50:00"
+    },
+    {
+      "messageId": 6,
+      "conversationId": 3,
+      "senderId": 5,
+      "messageText": "Not yet, but I'll send it over by noon.",
+      "timestamp": "2025-01-15 08:52:00"
+    },
+    {
+      "messageId": 7,
+      "conversationId": 4,
+      "senderId": 2,
+      "messageText": "Hey Carol, do you have any weekend plans?",
+      "timestamp": "2025-01-13 18:25:00"
+    },
+    {
+      "messageId": 8,
+      "conversationId": 4,
+      "senderId": 3,
+      "messageText": "I was thinking of hiking. How about you?",
+      "timestamp": "2025-01-13 18:30:00"
+    }
+  ]
+  

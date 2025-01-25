@@ -6,7 +6,11 @@ module.exports = {
         '645CF4': "#645CF4",
         'F5F5F5': "#F5F5F5",
         'F0F0F0': "#F0F0F0",
-        'D8D8D8': "#D8D8D8"
+        'D8D8D8': "#D8D8D8",
+        'BDBABA': "#BDBABA",
+        'ACA9E721': "#ACA9E721",
+        '8F8F8F': "#8F8F8F",
+        
       },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'], 
