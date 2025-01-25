@@ -4,7 +4,7 @@ import InfoField from "../components/InfoField";
 import { Avatar, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
 
-const UserInfoSection = () => {
+const ContactInfoSection = () => {
     return <div className="flex justify-center items-center flex-1 bg-FDFAFA h-full">
     <div className="w-5/6 flex flex-col justify-center items-center">
       <Avatar
@@ -36,4 +36,4 @@ const UserInfoSection = () => {
   </div>
 }
 
-export default UserInfoSection;
+export default ContactInfoSection;

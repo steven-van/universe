@@ -17,7 +17,7 @@ const Conversation = () => {
             <p className="font-robotoBold mr-3">John Doe</p>
             <Status showStatusLabel={false} />
           </div>
-          <p className="text-sm text-BDBABA">Vien dès que tu peux</p>
+          <p className="text-sm text-BDBABA truncate max-w-36">Vien dès que tu peux</p>
         </div>
       </div>
       <p className="text-sm text-BDBABA">12m</p>
