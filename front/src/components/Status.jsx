@@ -4,15 +4,17 @@ import { useState } from "react";
 const StatusEnum = {
   ONLINE: "online",
   OFFLINE: "offline",
+  BUSY: "busy",
   AWAY: "away",
 };
 
 const Status = ({ showStatusLabel = true }) => {
-  const [status] = useState(StatusEnum.OFFLINE);
+  const [status] = useState(StatusEnum.ONLINE);
 
   const statusColors = {
     [StatusEnum.ONLINE]: "bg-green-700", // Green
     [StatusEnum.OFFLINE]: "bg-red-700", // Red
+    [StatusEnum.BUSY]: "bg-gray-300", // Gray
     [StatusEnum.AWAY]: "bg-orange-400", // Orange
   };
 

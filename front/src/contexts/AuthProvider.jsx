@@ -1,28 +1,28 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginService } from "../services/authService";
-import axios from 'axios';
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [authToken, setAuthToken] = useState(localStorage.getItem('authToken'));
+  const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
   const navigate = useNavigate();
 
   const login = async (username, password) => {
-  try {
-    const response = await loginService(username, password);
+    try {
+      const response = await loginService(username, password);
 
-    const { token } = response.data;
+      const { token } = response.data;
 
-    localStorage.setItem("authToken", token);
-    setAuthToken(token);
-    navigate("/home");
-  } catch (error) {
-    console.error("Error logging in:", error.response.data);
-    alert("Login failed, please check your username and password");
-  }
-
+      localStorage.setItem("authToken", token);
+      setAuthToken(token);
+      navigate("/home");
+    } catch (error) {
+      console.error("Error logging in:", error.response.data);
+      alert("Login failed, please check your username and password");
+    }
   };
 
   const logout = () => {
@@ -31,14 +31,27 @@ const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  const getUserIdFromToken = (token) => {
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        return decoded.userID;
+      } catch (err) {
+        console.error("Invalid token", err);
+        return null;
+      }
+    }
+    return null;
+  };
+
   useEffect(() => {
     if (authToken) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
     }
-}, [authToken]);
+  }, [authToken]);
 
   return (
-    <AuthContext.Provider value={{authToken, login, logout }}>
+    <AuthContext.Provider value={{ authToken, login, logout, getUserIdFromToken }}>
       {children}
     </AuthContext.Provider>
   );

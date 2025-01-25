@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import { useContext } from "react";
 import profilePic from "../assets/images/profile_picture.png";
 import { MenuContext } from "../contexts/MenuContext";
-import { MENU_ITEMS } from "../enums";
+import { SIDEBAR_MENU } from "../enums";
 
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useContext(MenuContext);
@@ -16,7 +16,7 @@ const Sidebar = () => {
           src={profilePic}
           sx={{ width: 60, height: 60, borderRadius: "20px" }}
         />
-        {activeItem === MENU_ITEMS.CONVERSATIONS ? (
+        {activeItem === SIDEBAR_MENU.CONVERSATIONS ? (
           <IconButton color="inherit">
             <Icon
               icon="solar:chat-dots-bold"
@@ -27,14 +27,14 @@ const Sidebar = () => {
           </IconButton>
         ) : (
           <IconButton
-            onClick={() => setActiveItem(MENU_ITEMS.CONVERSATIONS)}
+            onClick={() => setActiveItem(SIDEBAR_MENU.CONVERSATIONS)}
             color="inherit"
           >
             <Icon icon="solar:chat-dots-linear" width="30" height="30" />
           </IconButton>
         )}
 
-        {activeItem === MENU_ITEMS.CONTACTS ? (
+        {activeItem === SIDEBAR_MENU.CONTACTS ? (
           <IconButton color="inherit">
             <Icon
               icon="solar:users-group-rounded-bold"
@@ -45,7 +45,7 @@ const Sidebar = () => {
           </IconButton>
         ) : (
           <IconButton
-            onClick={() => setActiveItem(MENU_ITEMS.CONTACTS)}
+            onClick={() => setActiveItem(SIDEBAR_MENU.CONTACTS)}
             color="inherit"
           >
             <Icon
@@ -57,7 +57,7 @@ const Sidebar = () => {
         )}
       </div>
       <div className="flex flex-col items-center justify-center space-y-8">
-        {activeItem === MENU_ITEMS.INFOS ? (
+        {activeItem === SIDEBAR_MENU.INFOS ? (
           <IconButton color="inherit">
             <Icon
               icon="solar:info-circle-bold"
@@ -68,14 +68,13 @@ const Sidebar = () => {
           </IconButton>
         ) : (
           <IconButton
-            onClick={() => setActiveItem(MENU_ITEMS.INFOS)}
             color="inherit"
           >
             <Icon icon="solar:info-circle-linear" width="30" height="30" />
           </IconButton>
         )}
 
-        {activeItem === MENU_ITEMS.SETTINGS ? (
+        {activeItem === SIDEBAR_MENU.SETTINGS ? (
           <IconButton color="inherit">
             <Icon
               icon="solar:settings-bold"
@@ -86,7 +85,6 @@ const Sidebar = () => {
           </IconButton>
         ) : (
           <IconButton
-            onClick={() => setActiveItem(MENU_ITEMS.SETTINGS)}
             color="inherit"
           >
             <Icon icon="solar:settings-linear" width="30" height="30" />
