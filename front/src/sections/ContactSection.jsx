@@ -12,6 +12,7 @@ const ContactSection = () => {
   const { authToken, getUserIdFromToken } = useContext(AuthContext);
   const [contacts, setContacts] = useState([]);
   const [activeItem, setActiveItem] = useState(CONTACTS_MENU.CONTACTS);
+  const [selectedContact, setSelectedContact] = useState(null);
 
   const getUserContacts = async (token) => {
     const userId = getUserIdFromToken(token);
@@ -61,14 +62,19 @@ const ContactSection = () => {
             </button>
           </div>
           <div className="min-w-80 flex flex-col mt-4 px-4">
-            {activeItem === CONTACTS_MENU.CONTACTS &&
-              contacts.map((contact) => {
-                return <Contact contact={contact} />;
-              })}
+          {activeItem === CONTACTS_MENU.CONTACTS &&
+          contacts.map((contact) => {
+            return (
+              <div onClick={() => setSelectedContact(contact)}>
+                <Contact contact={contact} />
+              </div>
+            );
+          })}
           </div>
         </div>
       </div>
-      <ContactInfoSection />
+      {!selectedContact && <div className="flex-1"></div>} {/* Il faudra ajouter quelquechose pour pas que ca fasse vide ? */}
+      {selectedContact && <ContactInfoSection contact={selectedContact} />}
     </>
   );
 };

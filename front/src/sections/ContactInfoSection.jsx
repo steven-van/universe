@@ -4,7 +4,7 @@ import InfoField from "../components/InfoField";
 import { Avatar, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
 
-const ContactInfoSection = () => {
+const ContactInfoSection = ({ contact }) => {
     return <div className="flex justify-center items-center flex-1 bg-FDFAFA h-full">
     <div className="w-5/6 flex flex-col justify-center items-center">
       <Avatar
@@ -12,7 +12,7 @@ const ContactInfoSection = () => {
         alt="Profile Picture"
         sx={{ width: 120, height: 120, borderRadius: "20px" }}
       />
-      <p className="font-robotoBold text-xl mt-6">John Doe</p>
+      <p className="font-robotoBold text-xl mt-6">{contact.firstname} {contact.lastname}</p>
       <div className="w-full flex flew-row space-x-8 mt-10 mb-8">
       <IconButton style={{flex: "1 1 0%", backgroundColor: "#EFFFEF", borderRadius: "6px", padding: "25px 0"}}>
           <Icon icon="solar:chat-dots-linear" width="30" height="30" color="#14AE5C"/>
@@ -25,7 +25,7 @@ const ContactInfoSection = () => {
         </IconButton>    
       </div>
       <div className="w-full space-y-2">
-        <InfoField label="Mail" text="johndoe@gmail.com" />
+        <InfoField label="Mail" text={contact.email} />
         <InfoField label="Anniversaire" text="24 août 2001" />
         <InfoField label="Mobile" text="+33 7 89 01 23 45" />
 
