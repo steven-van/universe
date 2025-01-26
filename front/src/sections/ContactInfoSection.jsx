@@ -10,6 +10,11 @@ const ContactInfoSection = ({ contact }) => {
     month: 'long',
     year: 'numeric',
   });
+  const contactInfo = {
+    Mail: contact.email,
+    Anniversaire: contact.formattedBirthday,
+    Mobile: contact.phone,
+  };
   return <div className="flex justify-center items-center flex-1 bg-FDFAFA h-full">
     <div className="w-5/6 flex flex-col justify-center items-center">
       <Avatar
@@ -30,9 +35,9 @@ const ContactInfoSection = ({ contact }) => {
         </IconButton>
       </div>
       <div className="w-full space-y-2">
-        <InfoField label="Mail" text={contact.email} />
-        <InfoField label="Anniversaire" text={formattedBirthday} />
-        <InfoField label="Mobile" text={contact.phone} />
+        {Object.keys(contactInfo).map((key) => (
+          <InfoField key={key} label={key.charAt(0).toUpperCase() + key.slice(1)} text={contactInfo[key]} />
+        ))}
 
       </div>
 

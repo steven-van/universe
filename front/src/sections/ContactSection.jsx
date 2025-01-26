@@ -73,8 +73,7 @@ const ContactSection = () => {
           </div>
         </div>
       </div>
-      {!selectedContact && <div className="flex-1"></div>} {/* Il faudra ajouter quelquechose pour pas que ca fasse vide ? */}
-      {selectedContact && <ContactInfoSection contact={selectedContact} />}
+      {selectedContact ? <ContactInfoSection contact={selectedContact} /> : <div className="flex-1"></div>}
     </>
   );
 };
