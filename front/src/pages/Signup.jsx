@@ -13,10 +13,6 @@ const SignupButton = styled(Button)(() => ({
 const Signup = () => {
   const [user, setUser] = useState({});
 
-  useEffect(() => {
-    console.log(user);
-  })
-
   return (
     <div className="container bg-white h-full w-full flex flex-col justify-center items-center">
       <div className="w-1/4 min-w-80 rounded-2xl shadow-xl">
@@ -37,6 +33,7 @@ const Signup = () => {
               setUser({ ...user, password: e.target.value });
             }}
             required
+            type="password"
             label="Password"
             value={user.password}
           />
@@ -66,7 +63,7 @@ const Signup = () => {
           />
           <CustomTextField
             onChange={(e) => {
-              setUser({ ...user, birthday: e.target.value });
+              setUser({ ...user, phone: e.target.value });
             }}
             required
             label="Phone"
