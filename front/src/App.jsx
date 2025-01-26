@@ -5,6 +5,7 @@ import Login from "./pages/Login.jsx";
 import Home from "./pages/Home.jsx";
 import { MenuProvider } from "./contexts/MenuContext";
 import AuthProvider from "./contexts/AuthProvider";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -13,7 +14,14 @@ function App() {
         <MenuProvider>
           <Routes>
             <Route path="login" element={<Login />} />
-            <Route path="home" element={<Home />} />
+            <Route
+              path="home"
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </MenuProvider>
       </AuthProvider>
