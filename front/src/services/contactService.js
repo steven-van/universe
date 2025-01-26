@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getUserContactsService = async (userID) => {
-  const response = await axios.get(`http://localhost:8000/contacts/${userID}`);
+export const getUserContactsService = async (userId) => {
+  const response = await axios.get(`http://localhost:8000/contacts/${userId}`);
   return response.data
 };

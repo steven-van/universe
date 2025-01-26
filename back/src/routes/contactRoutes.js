@@ -6,6 +6,6 @@ const router = express.Router();
 router.post("/addContact", contactController.addContact);
 
 // Get contacts of a specific user
-router.get("/contacts/:userID", contactController.getContacts);
+router.get("/contacts/:userId", contactController.getContacts);
 
 module.exports = router;

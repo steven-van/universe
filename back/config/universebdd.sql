@@ -1,68 +1,61 @@
--- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1:3306
--- Généré le : sam. 11 jan. 2025 à 14:29
--- Version du serveur : 8.0.31
--- Version de PHP : 8.0.26
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
--- Base de données : `universebdd`
+-- Database: universebdd
 --
+
+DROP SCHEMA IF EXISTS universebdd;
+CREATE SCHEMA universebdd;
+USE universebdd;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `user`
+-- Table structure for table user
 --
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
-  `userID` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf16_bin NOT NULL,
-  `email` varchar(255) COLLATE utf16_bin NOT NULL,
-  `password` varchar(255) COLLATE utf16_bin NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
-  PRIMARY KEY (`userID`),
+  `user_id` INT NOT NULL AUTO_INCREMENT,
+  `firstname` VARCHAR(255) COLLATE utf8mb4_bin NOT NULL,
+  `lastname` VARCHAR(255) COLLATE utf8mb4_bin NOT NULL,
+  `email` VARCHAR(255) COLLATE utf8mb4_bin NOT NULL,
+  `password` VARCHAR(255) COLLATE utf8mb4_bin NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NOT NULL,
+  PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
--- Structure de la table `contact`
+-- Table structure for table contact
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE IF NOT EXISTS `contact` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `userID` int NOT NULL,
-  `contactID` int NOT NULL,
-  `createdAt` datetime NOT NULL,
-  `updatedAt` datetime NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `contact_id` INT NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
-  FOREIGN KEY (`userID`) REFERENCES `user`(`userID`),
-  FOREIGN KEY (`contactID`) REFERENCES `user`(`userID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+  FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`),
+  FOREIGN KEY (`contact_id`) REFERENCES `user`(`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
--- Déchargement des données de la table `user`
+-- Data dump for table user
 --
 
-INSERT INTO `user` (`userID`, `name`, `email`, `password`, `createdAt`, `updatedAt`) VALUES
-(6, 'Nana SIU', 'nanananananan@gmail.com', '$2b$10$q1Cl4/jNF4JVaethrzA3QuTce/I5zCJwgmixyr.JeBCaNQnf/9Hfa', '2025-01-12 13:51:40', '2025-01-12 13:51:40'),
-(7, 'Steven Vanne', 'vanilla@gmail.com', '$2b$10$Wwnybowlje/m3U2TZ9tiA.6XCrh1TOt17wTA4.J7lilIanzQnn/Vm', '2025-01-12 13:52:15', '2025-01-12 13:52:15'),
-(8, 'Bastien récré', 'maracasse@gmail.com', '$2b$10$9WCjo75v.uo1959nntyeluoUsaUjxdQvKfL3kBbYuGBkt19U0EasW', '2025-01-12 13:52:49', '2025-01-12 13:52:49'),
-(9, 'Louis41', 'pasdechance@gmail.com', '$2b$10$GdkGUYr5Cq6M.jNa5QuDN.U/g2T44KhpoNtpY9po5aCKGKrm4JfJS', '2025-01-12 13:54:32', '2025-01-12 13:54:32');
+INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `created_at`, `updated_at`) VALUES
+(6, 'Nana', 'SIU', 'nanananananan@gmail.com', '$2b$10$q1Cl4/jNF4JVaethrzA3QuTce/I5zCJwgmixyr.JeBCaNQnf/9Hfa', '2025-01-12 13:51:40', '2025-01-12 13:51:40'),
+(7, 'Steven', 'Vanne', 'vanilla@gmail.com', '$2b$10$Wwnybowlje/m3U2TZ9tiA.6XCrh1TOt17wTA4.J7lilIanzQnn/Vm', '2025-01-12 13:52:15', '2025-01-12 13:52:15'),
+(8, 'Bastien', 'récré', 'maracasse@gmail.com', '$2b$10$9WCjo75v.uo1959nntyeluoUsaUjxdQvKfL3kBbYuGBkt19U0EasW', '2025-01-12 13:52:49', '2025-01-12 13:52:49'),
+(9, 'Louis', '41', 'pasdechance@gmail.com', '$2b$10$GdkGUYr5Cq6M.jNa5QuDN.U/g2T44KhpoNtpY9po5aCKGKrm4JfJS', '2025-01-12 13:54:32', '2025-01-12 13:54:32');
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- Data dump for table contact
+INSERT INTO `contact` (`user_id`, `contact_id`, `created_at`, `updated_at`) VALUES
+(6, 7, '2025-01-12 14:00:00', '2025-01-12 14:00:00'),  -- Nana SIU and Steven Vanne
+(6, 8, '2025-01-12 14:01:00', '2025-01-12 14:01:00'),  -- Nana SIU and Bastien récré
+(7, 9, '2025-01-12 14:02:00', '2025-01-12 14:02:00'),  -- Steven Vanne and Louis41
+(8, 6, '2025-01-12 14:03:00', '2025-01-12 14:03:00');  -- Bastien récré and Nana SIU
