@@ -13,7 +13,7 @@ const LoginButton = styled(Button)(() => ({
 }));
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const {login} = useAuth();
   
@@ -25,10 +25,10 @@ const Login = () => {
         </div>
         <div className="flex flex-col justify-center items-center p-8 space-y-4">
           <CustomTextField
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
-            label="Username"
-            value={username}
+            label="Email"
+            value={email}
           />
           <CustomTextField
             onChange={(e) => setPassword(e.target.value)}
@@ -37,7 +37,7 @@ const Login = () => {
             value={password}
           />
           <CustomLink href="https://google.com">Forgot password ?</CustomLink>
-          <LoginButton onClick={() => login(username,password)} variant="contained">
+          <LoginButton onClick={() => login(email,password)} variant="contained">
             Login
           </LoginButton>
         </div>

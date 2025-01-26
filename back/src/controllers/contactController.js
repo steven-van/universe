@@ -1,18 +1,18 @@
 const contactService = require('../services/contactService');
 
 exports.addContact = async (req, res) => {
-    const { userID, contactID } = req.body;
+    const { user_id, contact_id } = req.body;
     try {
-        if (!userID || !contactID) {
-            return res.status(400).json({ error: "userID and contactID are required" });
+        if (!user_id || !contact_id) {
+            return res.status(400).json({ error: "user_id and contact_id are required" });
         }
-        if (userID === contactID) {
+        if (user_id === contact_id) {
             return res.status(400).json({ error: "You can't add yourself as a contact" });
         }
-        if (await contactService.isContact(userID, contactID)) {
+        if (await contactService.isContact(user_id, contact_id)) {
             return res.status(400).json({ error: "You are already contacts" });
         }
-        const contact = await contactService.addContact(userID, contactID);
+        const contact = await contactService.addContact(user_id, contact_id);
         res.status(201).json(contact);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -20,12 +20,12 @@ exports.addContact = async (req, res) => {
 };
 
 exports.getContacts = async (req, res) => {
-    const { userID } = req.params;
+    const { userId } = req.params;
     try {
-        if (!userID) {
-            return res.status(400).json({ error: "userID is required" });
+        if (!userId) {
+            return res.status(400).json({ error: "user_id is required" });
         }
-        const contacts = await contactService.getContacts(userID);
+        const contacts = await contactService.getContacts(userId);
         res.status(200).json(contacts);
     } catch (error) {
         res.status(500).json({ message: error.message });
