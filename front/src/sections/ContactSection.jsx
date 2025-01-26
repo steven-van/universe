@@ -65,9 +65,9 @@ const ContactSection = () => {
           {activeItem === CONTACTS_MENU.CONTACTS &&
           contacts.map((contact) => {
             return (
-              <div onClick={() => setSelectedContact(contact)}>
+              <button onClick={() => setSelectedContact(contact)}>
                 <Contact contact={contact} />
-              </div>
+              </button>
             );
           })}
           </div>
