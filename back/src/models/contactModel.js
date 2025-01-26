@@ -10,25 +10,37 @@ const Contact = con.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    userID: {
+    user_id: {  
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: User,
-        key: "userID",
+        key: "user_id",  
       },
     },
-    contactID: {
+    contact_id: {  
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: User,
-        key: "userID",
+        key: "user_id",  
       },
     },
+    created_at: {  
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,  
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,  // Automatically set the current timestamp
+      onUpdate: DataTypes.NOW,  // Automatically update the timestamp on each update
+    }
   },
   {
     tableName: "contact",
+    timestamps: false,  // Ensure Sequelize does not automatically create its own createdAt/updatedAt fields
   }
 );
 

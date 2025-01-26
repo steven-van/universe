@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Button, styled } from "@mui/material";
 import { CustomTextField } from "../components/CustomTextField";
 import { CustomLink } from "../components/CustomLink";
-import axios from "axios";
+import { useAuth } from "../contexts/AuthProvider";
 
 const LoginButton = styled(Button)(() => ({
   backgroundColor: "#645CF4",
@@ -14,29 +13,9 @@ const LoginButton = styled(Button)(() => ({
 }));
 
 const Login = () => {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-
-  const checkLogin = async () => {
-    try {
-      const response = await axios.post('http://localhost:8000/login', {
-        name: username,
-        password: password,
-      });
-      
-      // Récupère le token JWT (A faire quand on voudra utiliser le système de token pour sécurirer lappli)
-      //const { token } = response.data;
-      // Stocke le token dans le localStorage, ce qui permet de le récup après
-      //localStorage.setItem('token', token);
-      localStorage.setItem('username', username); // Méthode de charlatan, cest pas propre mais ca suffit pour un premier jet
-      // Et la on redirige
-      navigate("/home");
-    } catch (error) {
-      console.error('Error logging in:', error.response.data);
-      alert('Login failed, please check your username and password');
-    }
-  };
+  const {login} = useAuth();
   
   return (
     <div className="container bg-white h-full w-full flex flex-col justify-center items-center">
@@ -46,10 +25,10 @@ const Login = () => {
         </div>
         <div className="flex flex-col justify-center items-center p-8 space-y-4">
           <CustomTextField
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             required
-            label="Username"
-            value={username}
+            label="Email"
+            value={email}
           />
           <CustomTextField
             onChange={(e) => setPassword(e.target.value)}
@@ -58,7 +37,7 @@ const Login = () => {
             value={password}
           />
           <CustomLink href="https://google.com">Forgot password ?</CustomLink>
-          <LoginButton onClick={checkLogin} variant="contained">
+          <LoginButton onClick={() => login(email,password)} variant="contained">
             Login
           </LoginButton>
         </div>

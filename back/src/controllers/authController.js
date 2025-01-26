@@ -2,9 +2,9 @@ const authService = require("../services/authService");
 const socket = require('../socket.js');
 
 exports.signup = async (req, res) => {
-  const { name, email, password } = req.body;
+  const { firstname, lastname, email, password } = req.body;
   try {
-    const newUser = await authService.signup({ name, email, password });
+    const newUser = await authService.signup({ firstname, lastname, email, password });
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: "Failed to create user" });
@@ -12,15 +12,14 @@ exports.signup = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { name, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const token = await authService.login({ name, password });
+    const token = await authService.login({ email, password });
     
     // Socket creation for this user
-    
-    const io = socket.getSocketIo(); // Recup socket io
-    io.emit('login', { user: name });
+    const io = socket.getSocketIo();
+    io.emit('login', { email: email });
 
     return res.status(200).json({ token });
   } catch (error) {
