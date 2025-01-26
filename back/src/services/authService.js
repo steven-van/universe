@@ -3,10 +3,10 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 require('dotenv').config();
 
-exports.signup = async ({ firstname, lastname, email, password }) => {
+exports.signup = async ({ firstname, lastname, email, password, birthday, phone }) => {
   const saltRounds = 10; // Arbitrary choice
   const hashedPassword = await bcrypt.hash(password, saltRounds);
-  const newUser = await User.create({ firstname, lastname, email, password: hashedPassword });
+  const newUser = await User.create({ firstname, lastname, email, password: hashedPassword, birthday, phone });
   return newUser;
 };
 
