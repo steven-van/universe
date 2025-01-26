@@ -30,7 +30,7 @@ exports.getContacts = async (userId) => {
     where: {
       user_id: contactIds 
     },
-    attributes: ['user_id', 'firstname', 'lastname', 'email'] 
+    attributes: ['user_id', 'firstname', 'lastname', 'email', 'birthday', 'phone'] 
   });
 
   return contactUsers;

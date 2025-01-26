@@ -23,6 +23,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `lastname` VARCHAR(255) COLLATE utf8mb4_bin NOT NULL,
   `email` VARCHAR(255) COLLATE utf8mb4_bin NOT NULL,
   `password` VARCHAR(255) COLLATE utf8mb4_bin NOT NULL,
+  `birthday` DATE COLLATE utf8mb4_bin NOT NULL, -- Format : YYYY-MM-DD
+  `phone` VARCHAR(20) COLLATE utf8mb4_bin NOT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NOT NULL,
   PRIMARY KEY (`user_id`),
@@ -46,11 +48,11 @@ CREATE TABLE IF NOT EXISTS `contact` (
 -- Data dump for table user
 --
 
-INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `created_at`, `updated_at`) VALUES
-(6, 'Nana', 'SIU', 'nanananananan@gmail.com', '$2b$10$q1Cl4/jNF4JVaethrzA3QuTce/I5zCJwgmixyr.JeBCaNQnf/9Hfa', '2025-01-12 13:51:40', '2025-01-12 13:51:40'),
-(7, 'Steven', 'Vanne', 'vanilla@gmail.com', '$2b$10$Wwnybowlje/m3U2TZ9tiA.6XCrh1TOt17wTA4.J7lilIanzQnn/Vm', '2025-01-12 13:52:15', '2025-01-12 13:52:15'),
-(8, 'Bastien', 'récré', 'maracasse@gmail.com', '$2b$10$9WCjo75v.uo1959nntyeluoUsaUjxdQvKfL3kBbYuGBkt19U0EasW', '2025-01-12 13:52:49', '2025-01-12 13:52:49'),
-(9, 'Louis', '41', 'pasdechance@gmail.com', '$2b$10$GdkGUYr5Cq6M.jNa5QuDN.U/g2T44KhpoNtpY9po5aCKGKrm4JfJS', '2025-01-12 13:54:32', '2025-01-12 13:54:32');
+INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `birthday`, `phone`, `created_at`, `updated_at`) VALUES
+(6, 'Nana', 'SIU', 'nanananananan@gmail.com', '$2b$10$q1Cl4/jNF4JVaethrzA3QuTce/I5zCJwgmixyr.JeBCaNQnf/9Hfa', '1990-05-15', '07 82 16 92 18', '2025-01-12 13:51:40', '2025-01-12 13:51:40'),
+(7, 'Steven', 'Vanne', 'vanilla@gmail.com', '$2b$10$Wwnybowlje/m3U2TZ9tiA.6XCrh1TOt17wTA4.J7lilIanzQnn/Vm', '1985-08-20', '07 82 16 92 18', '2025-01-12 13:52:15', '2025-01-12 13:52:15'),
+(8, 'Bastien', 'récré', 'maracasse@gmail.com', '$2b$10$9WCjo75v.uo1959nntyeluoUsaUjxdQvKfL3kBbYuGBkt19U0EasW', '1992-11-30', '07 82 16 92 18', '2025-01-12 13:52:49', '2025-01-12 13:52:49'),
+(9, 'Louis', '41', 'pasdechance@gmail.com', '$2b$10$GdkGUYr5Cq6M.jNa5QuDN.U/g2T44KhpoNtpY9po5aCKGKrm4JfJS', '1988-02-25', '07 82 16 92 18', '2025-01-12 13:54:32', '2025-01-12 13:54:32');
 COMMIT;
 
 -- Data dump for table contact
