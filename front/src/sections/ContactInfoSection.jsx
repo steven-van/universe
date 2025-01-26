@@ -3,6 +3,7 @@ import profilePic from "../assets/images/profile_picture.png";
 import InfoField from "../components/InfoField";
 import { Avatar, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
+import { formatBirthday } from "../utils";
 
 const buttonStyles = (bgColor, iconColor) => ({
   flex: "1 1 0%",
@@ -18,9 +19,9 @@ const ContactInfoSection = ({ contact }) => {
   const formattedBirthday = formatBirthday(birthday);
 
   const contactInfo = [
-    { label: 'Email', value: email },
-    { label: 'Birthday', value: formattedBirthday },
-    { label: 'Phone', value: phone }
+    { label: "Email", value: email },
+    { label: "Birthday", value: formattedBirthday },
+    { label: "Phone", value: phone },
   ];
 
   return (
@@ -31,7 +32,9 @@ const ContactInfoSection = ({ contact }) => {
           alt="Profile Picture"
           sx={{ width: 120, height: 120, borderRadius: "20px" }}
         />
-        <p className="font-robotoBold text-xl mt-6">{firstname} {lastname}</p>
+        <p className="font-robotoBold text-xl mt-6">
+          {firstname} {lastname}
+        </p>
 
         <div className="w-full flex space-x-8 mt-10 mb-8">
           <IconButton style={buttonStyles("#EFFFEF", "#14AE5C")}>
