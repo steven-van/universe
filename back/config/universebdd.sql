@@ -23,8 +23,8 @@ CREATE TABLE IF NOT EXISTS `user` (
   `lastname` VARCHAR(255) COLLATE utf8mb4_bin NOT NULL,
   `email` VARCHAR(255) COLLATE utf8mb4_bin NOT NULL,
   `password` VARCHAR(255) COLLATE utf8mb4_bin NOT NULL,
-  `birthday` DATE utf8mb4_bin NOT NULL, -- Format : YYYY-MM-DD
-  `phone` VARCHAR(20) utf8mb4_bin NOT NULL,
+  `birthday` DATE COLLATE utf8mb4_bin NOT NULL, -- Format : YYYY-MM-DD
+  `phone` VARCHAR(20) COLLATE utf8mb4_bin NOT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NOT NULL,
   PRIMARY KEY (`user_id`),
