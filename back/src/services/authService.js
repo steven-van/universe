@@ -12,7 +12,7 @@ exports.signup = async ({ firstname, lastname, email, password }) => {
 
 exports.login = async ({ email, password }) => {
   // Check if user exists
-  const user = await User.findOne({ where: { email } });
+  const user = await User.findOne({ where: { email: email } });
   if (!user) {
     throw new Error("User not found");
   }

@@ -10,9 +10,9 @@ const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(localStorage.getItem("authToken"));
   const navigate = useNavigate();
 
-  const login = async (username, password) => {
+  const login = async (email, password) => {
     try {
-      const response = await loginService(username, password);
+      const response = await loginService(email, password);
 
       const { token } = response.data;
 
@@ -21,7 +21,7 @@ const AuthProvider = ({ children }) => {
       navigate("/home");
     } catch (error) {
       console.error("Error logging in:", error.response.data);
-      alert("Login failed, please check your username and password");
+      alert("Login failed, please check your email and password");
     }
   };
 
