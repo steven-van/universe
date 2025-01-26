@@ -1,14 +1,14 @@
 const Message = require("../models/messageModel");
 
-exports.createmessage = async ({ texte_message,status_message,expediteurID, destinataireID, conversationID }) => {
+exports.createmessage = async ({ text_message,status_message,senderID, recipientID, conversationID }) => {
     
     const newMessage = await Message.create({
-        texte_message,
+        text_message,
         date_message: new Date(),
         status_message,
-        expediteurID,
-        destinataireID,
-        conversationID: null,
+        senderID,
+        recipientID,
+        conversationID,
       });
 
     return newMessage;

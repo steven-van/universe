@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const con = require('../../config/connection');
+const Conversation = require('./conversationModel');
 
 const Message = con.define('Message', {
     messageID: {
@@ -20,17 +21,21 @@ const Message = con.define('Message', {
       type: DataTypes.STRING,
       allowNull: true, // Initialement à null
     },
-    expediteurID: {
+    senderID: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    destinataireID: {
+    recipientID: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
     conversationID: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
+      references: {
+        model: Conversation,
+        key: "conversationID",
+      },
     },
   }, {
     tableName: 'message', // Nom de la table dans la base de données

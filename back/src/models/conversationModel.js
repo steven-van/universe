@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const con = require('../../config/connection');
+const User = require('./userModel');
 
 const Message = con.define('Conversation', {
     conversationID: {
@@ -10,10 +11,18 @@ const Message = con.define('Conversation', {
     user1ID: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        references: {
+            model: User,
+            key: "userID",
+          },
     },
     user2ID: {
         type: DataTypes.INTEGER,
-            allowNull: false,
+        allowNull: false,
+        references: {
+            model: User,
+            key: "userID",
+            },
     },
   },
    {

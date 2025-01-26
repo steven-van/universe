@@ -25,7 +25,7 @@ const User = con.define(
     },
   },
   {
-    tableName: "user", // Nom de la table dans la base de données
+    tableName: "user", 
   }
 );
 
