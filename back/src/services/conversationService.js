@@ -28,7 +28,7 @@ exports.getOrCreateConversation = async (user1Id,user2ID) => {
 };
 
 // return all user conversation in a list
-exports.getAllUserConversations = async (userId) => {
+exports.getUserConversations = async (userId) => {
   try {
     const conversations = await Conversation.findAll({
       where: {

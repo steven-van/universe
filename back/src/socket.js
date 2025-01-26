@@ -20,9 +20,6 @@ const initializeSocket = (server) => {
     // All event for the socket
     io.on("connection", (socket) => { 
 
-        console.log(`User connected with socket ID: ${socket.id}`);
-        
-
         socket.on("login", (username) => {
             users[username] = socket.id; // link the username to the socket ID
             sockets[socket.id] = username; // link the socket ID to the username
@@ -81,7 +78,7 @@ const initializeSocket = (server) => {
               });
           });
 
-        socket.on("send-message", async (receiver, message, sender_id, receiver_id, conversation_id ) => {
+        socket.on("send-message", async (receiver, message, sender_id, recipient_id, conversation_id ) => {
 
           const currentDate_message = new Date();
           const response = await BodyguardAPI.analyzeMessage(message, currentDate_message);
@@ -97,10 +94,14 @@ const initializeSocket = (server) => {
           if (recommendedAction == 'REMOVE') {
             console.log(`Message from ${sockets[socket.id]} to ${receiver} failed: Message refused by Bodyguard because type : ${type} `);
             console.log(`Message from not saved in the database`);
+            socket.emit("error-notification", {
+              type: "warning",
+              text: "Attention, veuillez rester bienveillant envers votre prochain",
+            });
             return;
           }
           else{
-            socket_id_receiver = users[receiver];           
+            socket_id_recipient = users[receiver];           
             sender = sockets[socket.id]
 
             if (socket_id_receiver) {
@@ -113,7 +114,7 @@ const initializeSocket = (server) => {
               
               console.log(`Message from ${sender} to ${receiver}: ${message}`);
               //création en base de données
-              await messageService.createmessage({ texte_message: message, status_message: type,expediteurID: socket.id, destinataireID: socket_id_receiver, conversationID: conversation_id });
+              await messageService.createmessage({ texte_message: message, status_message: type,senderID: sender_id, recipientID: recipient_id, conversationID: conversation_id });
               console.log(`Message from ${sender} to ${receiver} saved in the database`);
             } 
             else {

@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS `message` (
 -- Déchargement des données de la table `message`
 --
 
-INSERT INTO `message` (`messageID`, `texte_message`, `date_message`, `status_message`, `expediteurID`, `destinataireID`, `conversationID`) VALUES
+INSERT INTO `message` (`messageID`, `text_message`, `date_message`, `status_message`, `senderID`, `recipientID`, `conversationID`) VALUES
 -- Message entre Nana SIU et Steven Vanne
 (1, 'Steven j`taime pas', '2025-01-12 14:10:00', NULL, 6, 7, 1),
 (2, 'Nana casse toi la puante', '2025-01-12 14:12:00', NULL, 7, 6, 1),
