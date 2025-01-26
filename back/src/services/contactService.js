@@ -2,37 +2,48 @@ const { Op } = require("sequelize");
 const Contact = require("../models/contactModel");
 const User = require("../models/userModel");
 
-exports.addContact = async (userID, contactID) => {
-    const newContact = await Contact.create({ userID, contactID });
-    return newContact;
-  };
-  
-exports.getContacts = async (userID) => {
+exports.addContact = async (userId, contactId) => {
+  const newContact = await Contact.create({
+    user_id: userId, 
+    contact_id: contactId 
+  });
+  return newContact;
+};
+
+exports.getContacts = async (userId) => {
   const contacts = await Contact.findAll({
     where: {
       [Op.or]: [
-        { userID: userID }, // Matches if userID is userID
-        { contactID: userID }, // Matches if userID is contactID
+        { user_id: userId },
+        { contact_id: userId }
       ],
     },
-    attributes: ['userID', 'contactID']
+    attributes: ['user_id', 'contact_id']
   });
 
-  const contactIDs = contacts.map(contact => {
-    return contact.userID == userID ? contact.contactID : contact.userID;
-  }) // Only retrieves the ID that is different from userID passed in parameter
+  const contactIds = contacts.map(contact => {
+    return contact.user_id == userId ? contact.contact_id : contact.user_id; 
+ 
+  });
 
   const contactUsers = await User.findAll({
     where: {
-      userID: contactIDs
+      user_id: contactIds 
     },
-    attributes: ['userID', 'name', 'email'] // Only retrieves userID, name, email
+    attributes: ['user_id', 'firstname', 'lastname', 'email'] 
   });
 
   return contactUsers;
 };
 
-exports.isContact = async (userID, contactID) => {
-    const contact = await Contact.findOne({ where: { userID, contactID } });
-    return contact !== null;
+exports.isContact = async (userId, contactId) => {
+  const contact = await Contact.findOne({ 
+    where: { 
+      [Op.or]: [
+        { user_id: userId, contact_id: contactId },
+        { user_id: contactId, contact_id: userId }
+      ],
+    } 
+  });
+  return contact !== null;
 };

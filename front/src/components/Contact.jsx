@@ -11,7 +11,7 @@ const Contact = ({contact}) => {
           alt="Profile Picture"
           sx={{ width: 60, height: 60, borderRadius: "20px" }}
         />
-        <p className="font-robotoBold ml-4">{contact.name}</p>
+        <p className="font-robotoBold ml-4">{contact.firstname} {contact.lastname}</p>
       </div>
     </div>
   );
