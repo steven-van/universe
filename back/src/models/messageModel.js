@@ -8,7 +8,7 @@ const Message = con.define('Message', {
       autoIncrement: true,
       primaryKey: true,
     },
-    texte_message: {
+    text_message: {
       type: DataTypes.TEXT,
       allowNull: false,
     },
@@ -19,7 +19,7 @@ const Message = con.define('Message', {
     },
     status_message: {
       type: DataTypes.STRING,
-      allowNull: true, // Initialement à null
+      allowNull: true, // initally null until the message is read by bodyguard
     },
     senderID: {
       type: DataTypes.INTEGER,
@@ -38,8 +38,8 @@ const Message = con.define('Message', {
       },
     },
   }, {
-    tableName: 'message', // Nom de la table dans la base de données
-    timestamps: false, // Désactive la gestion automatique des timestamps
+    tableName: 'message', // Message table name
+    timestamps: false,
   });
   
   module.exports = Message;
