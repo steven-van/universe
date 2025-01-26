@@ -1,10 +1,11 @@
 const { Server } = require("socket.io");
-const messageController = require("./controllers/messageController");
 const BodyguardAPI = require("./bodyguardAPI");
 const messageService = require("./services/messageService");
 
 let io; // Stocke l'instance du serveur Socket.IO
-let usernames = []; // list all usernames 
+let 
+ = []; // list all 
+ 
 const users = {}; 
 const sockets = {}; 
 
@@ -20,54 +21,57 @@ const initializeSocket = (server) => {
     // All event for the socket
     io.on("connection", (socket) => { 
 
-        socket.on("login", (username) => {
-            users[username] = socket.id; // link the username to the socket ID
-            sockets[socket.id] = username; // link the socket ID to the username
-            usernames.push(username); // add the username to the list
+        console.log(`User connected with socket ID: ${socket.id}`);
+        
 
-            console.log(`${username} logged in with socket ID: ${socket.id}`);
+        socket.on("login", (email) => {
+            users[email] = socket.id; // link the email to the socket ID
+            sockets[socket.id] = email; // link the socket ID to the email
+            emails.push(email); // add the email to the list
+
+            console.log(`${email} logged in with socket ID: ${socket.id}`);
 
             socket.join("default"); // test
 
-            socket.emit('welcome', { username });
+            socket.emit('welcome', { email });
 
             io.emit("update-user-list", Object.keys(users)); // all user connected
-            console.log(`All connected users : ${usernames}`);
+            console.log(`All connected users : ${emails}`);
           });
 
         // when the user disconnect
         socket.on("disconnect", () => {
             
-            const username = sockets[socket.id];
-            console.log(`${username} logged out`);
+            const email = sockets[socket.id];
+            console.log(`${email} logged out`);
 
-            const index = usernames.indexOf(username);
+            const index = emails.indexOf(email);
             if (index !== -1) {
-                usernames.splice(index, 1);
+                emails.splice(index, 1);
             }
             delete sockets[socket.id]; // delete the socket from the list
-            delete users[username]; // delete the user from the list
+            delete users[email]; // delete the user from the list
 
             console.log( Object.keys(users));
           });
         
-        socket.on("logout", (username) => {
+        socket.on("logout", (email) => {
 
-          if (users[username]) {
-              console.log(`${username} logged out`);
+          if (users[email]) {
+              console.log(`${email} logged out`);
               // Supprime les données utilisateur
-              delete sockets[users[username]];
-              delete users[username];
+              delete sockets[users[email]];
+              delete users[email];
       
-              const index = usernames.indexOf(username);
+              const index = emails.indexOf(email);
               if (index !== -1) {
-                  usernames.splice(index, 1);
+                  emails.splice(index, 1);
               }
       
               // Informe les autres clients
               io.emit("update-user-list", Object.keys(users));
-              console.log(`${username} s'est déconnecté via logout.`);
-              console.log(`All connected users : ${usernames}`);
+              console.log(`${email} s'est déconnecté via logout.`);
+              console.log(`All connected users : ${emails}`);
           }});
         
         socket.on("list-connected-users", (arg1, callback) => {
