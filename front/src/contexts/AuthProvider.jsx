@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        return decoded.userID;
+        return decoded.user_id;
       } catch (err) {
         console.error("Invalid token", err);
         return null;

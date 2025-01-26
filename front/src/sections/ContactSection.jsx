@@ -14,8 +14,8 @@ const ContactSection = () => {
   const [activeItem, setActiveItem] = useState(CONTACTS_MENU.CONTACTS);
 
   const getUserContacts = async (token) => {
-    const userID = getUserIdFromToken(token);
-    const contacts = await getUserContactsService(userID);
+    const userId = getUserIdFromToken(token);
+    const contacts = await getUserContactsService(userId);
     setContacts(contacts);
   };
 

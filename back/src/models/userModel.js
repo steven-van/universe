@@ -5,12 +5,16 @@ const Contact = require("./contactModel");
 const User = con.define(
   "User",
   {
-    userID: {
+    user_id: {  
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    name: {
+    firstname: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastname: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -23,14 +27,26 @@ const User = con.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    created_at: {  
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,  // Automatically set the current timestamp
+    },
+    updated_at: {  
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,  // Automatically set the current timestamp
+      onUpdate: DataTypes.NOW,  // Automatically update the timestamp on each update
+    }
   },
   {
-    tableName: "user", // Nom de la table dans la base de données
+    tableName: "user",  
+    timestamps: false,  // Ensure Sequelize doesn't automatically add its own createdAt/updatedAt fields
   }
 );
 
 // Define associations
-User.hasMany(Contact, { as: 'contactOf', foreignKey: 'contactID' });
-Contact.belongsTo(User, { as: 'contactUser', foreignKey: 'contactID' });
+User.hasMany(Contact, { as: 'contact_of', foreignKey: 'contact_id' });  
+Contact.belongsTo(User, { as: 'contact_user', foreignKey: 'contact_id' });  
 
 module.exports = User;
