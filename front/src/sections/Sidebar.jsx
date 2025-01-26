@@ -5,9 +5,11 @@ import { useContext } from "react";
 import profilePic from "../assets/images/profile_picture.png";
 import { MenuContext } from "../contexts/MenuContext";
 import { SIDEBAR_MENU } from "../enums";
+import { useAuth } from "../contexts/AuthProvider";
 
 const Sidebar = () => {
   const [activeItem, setActiveItem] = useContext(MenuContext);
+  const { logout } = useAuth();
 
   return (
     <div className="h-full w-28 flex flex-col justify-between items-center py-8 shadow-2xl">
@@ -57,39 +59,24 @@ const Sidebar = () => {
         )}
       </div>
       <div className="flex flex-col items-center justify-center space-y-8">
-        {activeItem === SIDEBAR_MENU.INFOS ? (
-          <IconButton color="inherit">
-            <Icon
-              icon="solar:info-circle-bold"
-              width="30"
-              height="30"
-              style={{ color: "#645CF4" }}
-            />
-          </IconButton>
-        ) : (
+
           <IconButton
             color="inherit"
           >
             <Icon icon="solar:info-circle-linear" width="30" height="30" />
           </IconButton>
-        )}
-
-        {activeItem === SIDEBAR_MENU.SETTINGS ? (
-          <IconButton color="inherit">
-            <Icon
-              icon="solar:settings-bold"
-              width="30"
-              height="30"
-              style={{ color: "#645CF4" }}
-            />
-          </IconButton>
-        ) : (
           <IconButton
             color="inherit"
           >
             <Icon icon="solar:settings-linear" width="30" height="30" />
           </IconButton>
-        )}
+          <IconButton
+            onClick={() => logout()}
+            color="inherit"
+          >
+            <Icon icon="solar:logout-2-outline" width="30" height="30" />
+          </IconButton>
+          
       </div>
     </div>
   );
