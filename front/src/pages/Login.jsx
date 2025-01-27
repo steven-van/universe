@@ -5,6 +5,7 @@ import { CustomTextField } from "../components/CustomTextField";
 import { CustomLink } from "../components/CustomLink";
 import { useAuth } from "../contexts/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import AuthModal from "../components/AuthModal";
 
 const LoginButton = styled(Button)(() => ({
   backgroundColor: "#645CF4",
@@ -26,40 +27,33 @@ const Login = () => {
   }, [authToken, navigate]);
 
   return (
-    <div className="container bg-white h-full w-full flex flex-col justify-center items-center">
-      <div className="w-1/4 min-w-80 flex flex-col justify-center items-center rounded-2xl shadow-xl">
-        <div className="flex justify-center items-center bg-gradient-to-r from-645CF4 to-blue-400 p-4 w-full text-white rounded-t-2xl font-robotoBold">
-          Universe
+    <AuthModal>
+      <div className="flex flex-col justify-center items-center p-8 space-y-4">
+        <CustomTextField
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          label="Email"
+          value={email}
+        />
+        <CustomTextField
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          label="Password"
+          type="password"
+          value={password}
+        />
+        <CustomLink href="https://google.com">Forgot password ?</CustomLink>
+        <div>
+          <p className="text-sm text-8F8F8F">
+            Don't have an account ?{" "}
+            <CustomLink onClick={() => navigate("/signup")}>Register here</CustomLink>
+          </p>
         </div>
-        <div className="flex flex-col justify-center items-center p-8 space-y-4">
-          <CustomTextField
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            label="Email"
-            value={email}
-          />
-          <CustomTextField
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            label="Password"
-            type="password"
-            value={password}
-          />
-          <CustomLink href="https://google.com">Forgot password ?</CustomLink>
-          <div>
-            <p className="text-sm text-8F8F8F">
-              Don't have an account ? <CustomLink onClick={() => navigate("/signup")}>Signup</CustomLink>
-            </p>
-          </div>
-          <LoginButton
-            onClick={() => login(email, password)}
-            variant="contained"
-          >
-            Login
-          </LoginButton>
-        </div>
+        <LoginButton onClick={() => login(email, password)} variant="contained">
+          Login
+        </LoginButton>
       </div>
-    </div>
+    </AuthModal>
   );
 };
 
