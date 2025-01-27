@@ -33,14 +33,12 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
           label="Email"
-          value={email}
         />
         <CustomTextField
           onChange={(e) => setPassword(e.target.value)}
           required
           label="Password"
           type="password"
-          value={password}
         />
         <CustomLink href="https://google.com">Forgot password ?</CustomLink>
         <div>

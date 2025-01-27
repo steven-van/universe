@@ -5,6 +5,7 @@ import { CustomTextField } from "../components/CustomTextField";
 import { CustomLink } from "../components/CustomLink";
 import AuthModal from "../components/AuthModal";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthProvider";
 
 const SignupButton = styled(Button)(() => ({
   backgroundColor: "#645CF4",
@@ -15,7 +16,8 @@ const SignupButton = styled(Button)(() => ({
 
 const Signup = () => {
   const [user, setUser] = useState({});
-  const navigate = useNavigate();
+  const { signup } = useAuth();
+  const navigate = useNavigate()
 
   return (
     <AuthModal>
@@ -26,7 +28,6 @@ const Signup = () => {
           }}
           required
           label="Email"
-          value={user.email}
         />
         <CustomTextField
           onChange={(e) => {
@@ -35,7 +36,6 @@ const Signup = () => {
           required
           type="password"
           label="Password"
-          value={user.password}
         />
         <CustomTextField
           onChange={(e) => {
@@ -43,7 +43,6 @@ const Signup = () => {
           }}
           required
           label="Firstname"
-          value={user.firstname}
         />
         <CustomTextField
           onChange={(e) => {
@@ -51,7 +50,6 @@ const Signup = () => {
           }}
           required
           label="Lastname"
-          value={user.lastname}
         />
         <CustomTextField
           onChange={(e) => {
@@ -59,7 +57,6 @@ const Signup = () => {
           }}
           required
           label="Birthdate"
-          value={user.birthdate}
         />
         <CustomTextField
           onChange={(e) => {
@@ -67,10 +64,9 @@ const Signup = () => {
           }}
           required
           label="Phone"
-          value={user.phone}
         />
 
-        <SignupButton onClick={() => ""} variant="contained">
+        <SignupButton onClick={() => signup(user)} variant="contained">
           Signup
         </SignupButton>
 

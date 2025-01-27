@@ -1,6 +1,6 @@
 import React, { useContext, createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginService } from "../services/authService";
+import { loginService, signupService } from "../services/authService";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 
@@ -21,6 +21,18 @@ const AuthProvider = ({ children }) => {
       navigate("/home");
     } catch (error) {
       console.error("Error logging in:", error.response.data);
+      alert("Login failed, please check your email and password");
+    }
+  };
+
+  const signup = async (user) => {
+    try {
+      const response = await signupService(user);
+      const { firstname, lastname } = response.data
+      alert(`User account ${firstname} ${lastname} created`);
+      navigate("/login");
+    } catch (error) {
+      console.error("Error signing up:", error.response.data);
       alert("Login failed, please check your email and password");
     }
   };
@@ -51,7 +63,7 @@ const AuthProvider = ({ children }) => {
   }, [authToken]);
 
   return (
-    <AuthContext.Provider value={{ authToken, login, logout, getUserIdFromToken }}>
+    <AuthContext.Provider value={{ authToken, signup, login, logout, getUserIdFromToken }}>
       {children}
     </AuthContext.Provider>
   );
