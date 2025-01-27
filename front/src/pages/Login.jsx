@@ -16,15 +16,15 @@ const LoginButton = styled(Button)(() => ({
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {authToken, login} = useAuth();
+  const { authToken, login } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (authToken) {
-      navigate('/home');
+      navigate("/home");
     }
   }, [authToken, navigate]);
-  
+
   return (
     <div className="container bg-white h-full w-full flex flex-col justify-center items-center">
       <div className="w-1/4 min-w-80 flex flex-col justify-center items-center rounded-2xl shadow-xl">
@@ -46,7 +46,15 @@ const Login = () => {
             value={password}
           />
           <CustomLink href="https://google.com">Forgot password ?</CustomLink>
-          <LoginButton onClick={() => login(email,password)} variant="contained">
+          <div>
+            <p className="text-sm text-8F8F8F">
+              Don't have an account ? <CustomLink onClick={() => navigate("/signup")}>Signup</CustomLink>
+            </p>
+          </div>
+          <LoginButton
+            onClick={() => login(email, password)}
+            variant="contained"
+          >
             Login
           </LoginButton>
         </div>
