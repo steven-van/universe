@@ -8,11 +8,11 @@ const base_Url = process.env.DATABASE_URL;
 const analyzeMessage = async (text, time) => {
 
   const headers = new fetch.Headers();
-  headers.append("X-Api-Key", '9223b050fdf127f3367f6fab5922ebde');
+  headers.append("X-Api-Key", apiKey);
   headers.append("Content-Type", "application/json");
 
   const body = JSON.stringify({
-    channelId: '1405e364-f464-479a-89f0-031f68242a71',
+    channelId: channelId,
     contents: [
       {
         text: text,
@@ -21,7 +21,7 @@ const analyzeMessage = async (text, time) => {
     ],
   });
 
-  	url = base_Url + "analyze";
+  url = base_Url + "analyze";
 
 	const requestOptions = {
 		method: 'POST',

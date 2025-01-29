@@ -9,6 +9,7 @@ const http = require("http");
 
 const authRoutes = require("./routes/authRoutes");
 const messageRoutes = require('./routes/messageRoutes');
+const contactRoutes = require("./routes/contactRoutes");
 
 const socket = require("./socket");
 
@@ -19,9 +20,8 @@ app.use(
   })
 );
 
-const server = http.createServer(app);
-
-socket.initializeSocket(server);
+const httpserver = http.createServer(app);
+socket.initializeSocket(httpserver);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -40,7 +40,7 @@ try {
     .catch((error) => {
       console.error("Error during sync:", error);
     });
-  server.listen(port, () => {
+  httpserver.listen(port, () => {
     console.log(`Server app listening on port ${port}`);
   });
 } catch (error) {

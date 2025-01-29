@@ -6,10 +6,12 @@ import Home from "./pages/Home.jsx";
 import { MenuProvider } from "./contexts/MenuContext";
 import AuthProvider from "./contexts/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SocketProvider from "./contexts/SocketProvider.jsx";
 
 function App() {
   return (
     <BrowserRouter>
+      <SocketProvider>
       <AuthProvider>
         <MenuProvider>
           <Routes>
@@ -25,6 +27,7 @@ function App() {
           </Routes>
         </MenuProvider>
       </AuthProvider>
+      </SocketProvider>
     </BrowserRouter>
   );
 }

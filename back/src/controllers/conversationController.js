@@ -11,9 +11,9 @@ exports.getUserconversations = async (req, res) => {
   };
 
 exports.getOrCreateConversation = async (req, res) => {
-    const { user1Id, user2ID } = req.body;
+    const { user1_id, user2_id } = req.body;
     try {
-      const conversation = await conversationservice.getOrCreateConversation(user1Id, user2ID);
+      const conversation = await conversationservice.getOrCreateConversation(user1_id, user2_id);
       res.status(200).json(conversation);
     } catch (error) {
       res.status(500).json({ error: error.message });

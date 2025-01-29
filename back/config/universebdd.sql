@@ -53,7 +53,6 @@ INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `bi
 (7, 'Steven', 'Vanne', 'vanilla@gmail.com', '$2b$10$Wwnybowlje/m3U2TZ9tiA.6XCrh1TOt17wTA4.J7lilIanzQnn/Vm', '1985-08-20', '07 82 16 92 18', '2025-01-12 13:52:15', '2025-01-12 13:52:15'),
 (8, 'Bastien', 'récré', 'maracasse@gmail.com', '$2b$10$9WCjo75v.uo1959nntyeluoUsaUjxdQvKfL3kBbYuGBkt19U0EasW', '1992-11-30', '07 82 16 92 18', '2025-01-12 13:52:49', '2025-01-12 13:52:49'),
 (9, 'Louis', '41', 'pasdechance@gmail.com', '$2b$10$GdkGUYr5Cq6M.jNa5QuDN.U/g2T44KhpoNtpY9po5aCKGKrm4JfJS', '1988-02-25', '07 82 16 92 18', '2025-01-12 13:54:32', '2025-01-12 13:54:32');
-COMMIT;
 
 -- Data dump for table contact
 INSERT INTO `contact` (`user_id`, `contact_id`, `created_at`, `updated_at`) VALUES
@@ -70,24 +69,24 @@ INSERT INTO `contact` (`user_id`, `contact_id`, `created_at`, `updated_at`) VALU
 
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE IF NOT EXISTS `message` (
-  `messageID` INT NOT NULL AUTO_INCREMENT,
-  `texte_message` TEXT NOT NULL,
+  `message_id` INT NOT NULL AUTO_INCREMENT,
+  `text_message` TEXT NOT NULL,
   `date_message` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status_message` VARCHAR(255) DEFAULT NULL,
-  `expediteurID` INT NOT NULL,
-  `destinataireID` INT NOT NULL,
-  `conversationID` INT NOT NULL,
-  PRIMARY KEY (`messageID`),
-  FOREIGN KEY (`expediteurID`) REFERENCES `user`(`userID`),
-  FOREIGN KEY (`destinataireID`) REFERENCES `user`(`userID`),
-  INDEX (`conversationID`)
+  `sender_id` INT NOT NULL,
+  `receiver_id` INT NOT NULL,
+  `conversation_id` INT NOT NULL,
+  PRIMARY KEY (`message_id`),
+  FOREIGN KEY (`sender_id`) REFERENCES `user`(`user_id`),
+  FOREIGN KEY (`receiver_id`) REFERENCES `user`(`user_id`),
+  INDEX (`conversation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
 --
 -- Déchargement des données de la table `message`
 --
 
-INSERT INTO `message` (`messageID`, `text_message`, `date_message`, `status_message`, `senderID`, `recipientID`, `conversationID`) VALUES
+INSERT INTO `message` (`message_id`, `text_message`, `date_message`, `status_message`, `sender_id`, `receiver_id`, `conversation_id`) VALUES
 -- Message entre Nana SIU et Steven Vanne
 (1, 'Steven j`taime pas', '2025-01-12 14:10:00', NULL, 6, 7, 1),
 (2, 'Nana casse toi la puante', '2025-01-12 14:12:00', NULL, 7, 6, 1),
@@ -103,7 +102,6 @@ INSERT INTO `message` (`messageID`, `text_message`, `date_message`, `status_mess
 -- Message entre Nana SIU et Louis41
 (7, 'Louis, viens me faire des bisous sinon je boude !', '2025-01-12 16:30:00', NULL, 6, 9, 4),
 (8, 'Ca yèst les meufs que ça prend la tête pour rien..', '2025-01-12 16:40:00', NULL, 9, 6, 4);
-COMMIT;
 
 
 -- --------------------------------------------------------
@@ -114,19 +112,19 @@ COMMIT;
 
 DROP TABLE IF EXISTS `conversation`;
 CREATE TABLE IF NOT EXISTS `conversation`(
-  `conversationID` INT NOT NULL AUTO_INCREMENT,
-  `user1ID` INT NOT NULL,
-  `user2ID` INT NOT NULL,
-  PRIMARY KEY (`conversationID`),
-  FOREIGN KEY (`user1ID`) REFERENCES `user`(`userID`),
-  FOREIGN KEY (`user2ID`) REFERENCES `user`(`userID`)
+  `conversation_id` INT NOT NULL AUTO_INCREMENT,
+  `user1_id` INT NOT NULL,
+  `user2_id` INT NOT NULL,
+  PRIMARY KEY (`conversation_id`),
+  FOREIGN KEY (`user1_id`) REFERENCES `user`(`user_id`),
+  FOREIGN KEY (`user2_id`) REFERENCES `user`(`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
 
 --
 -- Déchargement des données de la table `conversation`
 --
 
-INSERT INTO `conversation` (`conversationID`, `user1ID`, `user2ID`) VALUES
+INSERT INTO `conversation` (`conversation_id`, `user1_id`, `user2_id`) VALUES
 -- Conversation entre nana et steven
 (1, 6, 7),
 -- Conversation entre Bastien et Louis

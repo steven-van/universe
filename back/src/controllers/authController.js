@@ -1,5 +1,4 @@
 const authService = require("../services/authService");
-const socket = require('../socket.js');
 
 exports.signup = async (req, res) => {
   const { firstname, lastname, email, password, birthday, phone } = req.body;
@@ -17,9 +16,6 @@ exports.login = async (req, res) => {
   try {
     const token = await authService.login({ email, password });
     
-    // Socket creation for this user
-    io.emit('login', email);
-
     return res.status(200).json({ token });
   } catch (error) {
     if (error.message === "User not found") {

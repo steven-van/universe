@@ -3,25 +3,25 @@ const con = require('../../config/connection');
 const User = require('./userModel');
 
 const Message = con.define('Conversation', {
-    conversationID: {
+    conversation_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
     },
-    user1ID: {
+    user1_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: User,
-            key: "userID",
+            key: "user_id",
           },
     },
-    user2ID: {
+    user2_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: User,
-            key: "userID",
+            key: "user_id",
             },
     },
   },

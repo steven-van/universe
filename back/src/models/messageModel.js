@@ -3,7 +3,7 @@ const con = require('../../config/connection');
 const Conversation = require('./conversationModel');
 
 const Message = con.define('Message', {
-    messageID: {
+    message_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -21,20 +21,20 @@ const Message = con.define('Message', {
       type: DataTypes.STRING,
       allowNull: true, // initally null until the message is read by bodyguard
     },
-    senderID: {
+    sender_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    recipientID: {
+    receiver_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    conversationID: {
+    conversation_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: Conversation,
-        key: "conversationID",
+        key: "conversation_id",
       },
     },
   }, {

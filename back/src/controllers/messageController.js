@@ -1,14 +1,14 @@
 const messageService = require('../services/messageService');
 
 exports.createMessage = async (req, res) => {
-  const { texte_message, expediteurID, destinataireID, conversationID } = req.body;
+  const { text_message, sender_id, receiver_id, conversation_id } = req.body;
 
   try {
-    if (!texte_message || !expediteurID || !destinataireID || !conversationID) {
+    if (!text_message || !sender_id || !receiver_id || !conversation_id) {
       return res.status(400).json({ error: 'Tous les champs sont requis.' });
     }
 
-    const newMessage = messageService.createmessage({ texte_message, expediteurID, destinataireID, conversationID });
+    const newMessage = messageService.createmessage({ text_message, sender_id, receiver_id, conversation_id });
 
     // if message is created, send 201 status code
     res.status(201).json(newMessage);

@@ -2,13 +2,13 @@ const { Op } = require('sequelize');
 const Conversation = require('../models/conversation'); // Modèle Sequelize
 
 //get or create a conversation with 
-exports.getOrCreateConversation = async (user1Id,user2ID) => {
+exports.getOrCreateConversation = async (user1_id,user2_id) => {
   try {
     let conversation = await Conversation.findOne({
       where: {
         [Op.or]: [
-          { user1ID: user1Id, user2ID: user2ID },
-          { user1ID: user2ID, user2ID: user1Id },
+          { user1_id: user1_id, user2_id: user2_id },
+          { user1_id: user2_id, user2_id: user1_id },
         ],
       },
     });
@@ -16,8 +16,8 @@ exports.getOrCreateConversation = async (user1Id,user2ID) => {
     // Si aucune conversation n'est trouvée, en créer une
     if (!conversation) {
       conversation = await Conversation.create({
-        user1ID: user1Id,
-        user2ID: user2ID,
+        user1_id: user1_id,
+        user2_id: user2_id,
       });
     }
 
@@ -33,8 +33,8 @@ exports.getUserConversations = async (userId) => {
     const conversations = await Conversation.findAll({
       where: {
         [Sequelize.Op.or]: [
-          { user1ID: userId },
-          { user2ID: userId },
+          { user1_id: userId },
+          { user2_id: userId },
         ],
       },
     });
