@@ -20,7 +20,7 @@ export const signupService = async (user) => {
 
     return response;
   } catch (error) {
-    console.error("Error logging in:", error.response.data);
-    alert("Login failed, please check your email and password");
+    console.error("Error signing up:", error.response.data);
+    alert("Signup failed, please check your information");
   }
 };
