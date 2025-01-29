@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { Button, styled } from "@mui/material";
 import { CustomTextField } from "../components/CustomTextField";
@@ -16,13 +16,20 @@ const SignupButton = styled(Button)(() => ({
 
 const Signup = () => {
   const [user, setUser] = useState({});
-  const { signup } = useAuth();
-  const navigate = useNavigate()
+  const { authToken, signup } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authToken) {
+      navigate("/home");
+    }
+  }, [authToken, navigate]);
 
   return (
     <AuthModal>
       <div className="flex flex-col justify-center items-center p-8 space-y-4">
         <CustomTextField
+          fullWidth={true}
           onChange={(e) => {
             setUser({ ...user, email: e.target.value });
           }}
@@ -30,6 +37,7 @@ const Signup = () => {
           label="Email"
         />
         <CustomTextField
+          fullWidth={true}
           onChange={(e) => {
             setUser({ ...user, password: e.target.value });
           }}
@@ -38,6 +46,7 @@ const Signup = () => {
           label="Password"
         />
         <CustomTextField
+          fullWidth={true}
           onChange={(e) => {
             setUser({ ...user, firstname: e.target.value });
           }}
@@ -45,20 +54,26 @@ const Signup = () => {
           label="Firstname"
         />
         <CustomTextField
+          fullWidth={true}
           onChange={(e) => {
             setUser({ ...user, lastname: e.target.value });
           }}
           required
           label="Lastname"
         />
+
         <CustomTextField
+          type="date"
+          fullWidth={true}
           onChange={(e) => {
             setUser({ ...user, birthday: e.target.value });
           }}
           required
           label="Birthdate"
+          slotProps={{ inputLabel: { shrink: true } }}
         />
         <CustomTextField
+          fullWidth={true}
           onChange={(e) => {
             setUser({ ...user, phone: e.target.value });
           }}
@@ -73,7 +88,9 @@ const Signup = () => {
         <div>
           <p className="text-sm text-8F8F8F">
             Already have an account ?{" "}
-            <CustomLink onClick={() => navigate("/login")}>Login here</CustomLink>
+            <CustomLink onClick={() => navigate("/login")}>
+              Login here
+            </CustomLink>
           </p>
         </div>
       </div>
