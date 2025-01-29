@@ -7,6 +7,7 @@ import { MenuProvider } from "./contexts/MenuContext";
 import AuthProvider from "./contexts/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
 import SocketProvider from "./contexts/SocketProvider.jsx";
+import Signup from "./pages/Signup.jsx";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <MenuProvider>
           <Routes>
             <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
             <Route
               path="home"
               element={
