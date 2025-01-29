@@ -7,5 +7,6 @@ export const CustomLink = styled(Link)(() => ({
     "&:hover": {
       textDecoration: "underline",
       textDecorationColor: "#645CF4",
+      cursor: "pointer"
     },
   }))
