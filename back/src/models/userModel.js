@@ -27,6 +27,14 @@ const User = con.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    birthday: {
+      type: DataTypes.DATE,
+      required: false,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      required: false,
+    },
     created_at: {  
       type: DataTypes.DATE,
       allowNull: false,

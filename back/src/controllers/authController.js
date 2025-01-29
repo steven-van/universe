@@ -2,9 +2,9 @@ const authService = require("../services/authService");
 const socket = require('../socket.js');
 
 exports.signup = async (req, res) => {
-  const { firstname, lastname, email, password } = req.body;
+  const { firstname, lastname, email, password, birthday, phone } = req.body;
   try {
-    const newUser = await authService.signup({ firstname, lastname, email, password });
+    const newUser = await authService.signup({ firstname, lastname, email, password, birthday, phone });
     res.status(201).json(newUser);
   } catch (error) {
     res.status(500).json({ error: "Failed to create user" });

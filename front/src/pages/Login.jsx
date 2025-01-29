@@ -1,9 +1,10 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, styled } from "@mui/material";
 import { CustomTextField } from "../components/CustomTextField";
 import { CustomLink } from "../components/CustomLink";
 import { useAuth } from "../contexts/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const LoginButton = styled(Button)(() => ({
   backgroundColor: "#645CF4",
@@ -15,7 +16,14 @@ const LoginButton = styled(Button)(() => ({
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {login} = useAuth();
+  const {authToken, login} = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authToken) {
+      navigate('/home');
+    }
+  }, [authToken, navigate]);
   
   return (
     <div className="container bg-white h-full w-full flex flex-col justify-center items-center">

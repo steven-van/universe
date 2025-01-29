@@ -10,6 +10,7 @@ module.exports = {
         'BDBABA': "#BDBABA",
         'ACA9E721': "#ACA9E721",
         '8F8F8F': "#8F8F8F",
+        'FDFAFA': "#FDFAFA"
         
       },
       fontFamily: {
