@@ -21,7 +21,6 @@ exports.getConversationMessages = async (conversationId) => {
                 conversation_id: conversationId,
             },
         });
-        console.log(messages)
         return messages;
     } catch (error) {
         throw new Error('Error retrieving messages: ' + error.message);

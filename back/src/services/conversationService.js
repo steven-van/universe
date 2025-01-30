@@ -55,7 +55,6 @@ exports.getUserConversations = async (userId) => {
     };
   }));
   
-  console.log(newconvs);
   return newconvs;
   
   } catch (error) {

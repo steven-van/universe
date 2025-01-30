@@ -104,7 +104,7 @@ const initializeSocket = (server) => {
             
             callback({
               success: false,
-              errorMessage: "Attention, veuillez rester bienveillant envers votre prochain",
+              errorMessage: `Le message '${message}' ne convient pas à nos règles de modération`,
             });
             return;
           }

@@ -51,10 +51,8 @@ const ChatSection = ({conversation}) => {
         
         if (response.success) {
           addMessage(message, user_id, false); 
-          console.log(messagesList)
         } else {
-          consolel.log(response.errorMessage);
-          const errorMessage = response.data.errorMessage
+          const errorMessage = response.errorMessage
           addMessage(errorMessage, user_id, true); // Optionnel : Afficher l'erreur dans la liste des messages OU notification d'erreur
         }
       });
@@ -111,7 +109,7 @@ const ChatSection = ({conversation}) => {
           if (message.isError === true) {
             return(
               <WarningBubble >
-                {message.text}
+                {message.text_message}
               </WarningBubble>
             );
           }
