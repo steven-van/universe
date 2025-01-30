@@ -1,29 +1,34 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import { useAuth } from "./AuthProvider";
 
 const SocketContext = createContext();
 
 const SocketProvider = ({ children }) => {
+  const { authToken, getUserIdFromToken } = useAuth();
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:8000", {
-      withCredentials: true,
-    });
 
-    setSocket(newSocket);
+    const userId = getUserIdFromToken(authToken);
+
+    if (authToken){
+      const newSocket = io("http://localhost:8000", {
+        withCredentials: true,
+      });
+
+      setSocket(newSocket);
+
+      newSocket.emit("login", userId);
 
     return () => newSocket.close();
-  }, []);
-  
-  const loginSocket = (email) => {
-    if (socket) {
-      socket.emit("login", { email });
+
     }
-  };
+
+  }, []);
 
   return (
-    <SocketContext.Provider value={{ socket, loginSocket }}>
+    <SocketContext.Provider value={{ socket }}>
       {children}
     </SocketContext.Provider>
   );

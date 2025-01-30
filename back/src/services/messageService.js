@@ -13,3 +13,17 @@ exports.createmessage = async ({ text_message,status_message,sender_id, receiver
 
     return newMessage;
   };
+
+exports.getConversationMessages = async (conversationId) => {
+    try {
+        const messages = await Message.findAll({
+            where: {
+                conversation_id: conversationId,
+            },
+        });
+        console.log(messages)
+        return messages;
+    } catch (error) {
+        throw new Error('Error retrieving messages: ' + error.message);
+    }
+}

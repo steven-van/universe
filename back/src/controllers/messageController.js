@@ -17,3 +17,15 @@ exports.createMessage = async (req, res) => {
     res.status(500).json({ error: 'Erreur lors de la création du message.' });
   }
 };
+
+exports.getConversationMessages = async (req, res) => {
+  const { conversationId } = req.params;
+
+  try {
+    const messages = await messageService.getConversationMessages(conversationId);
+    res.status(200).json(messages);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des messages :', error);
+    res.status(500).json({ error: 'Erreur lors de la récupération des messages.' });
+  }
+}

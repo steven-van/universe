@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { loginService, signupService } from "../services/authService";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { useSocket } from "./SocketProvider";
-import { io } from "socket.io-client";
 
 export const AuthContext = createContext();
 
@@ -15,22 +13,16 @@ const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const response = await loginService(email, password);
-
       const { token } = response.data;
-
-      if (response.data.success) {
-
-        const socket = io.connect("http://localhost:8000");
-        socket.connect();
-        socket.emit("login", { email: email });
-        
+      
+      if (token) {
+        localStorage.setItem("authToken", token);
+        setAuthToken(token);
+        navigate("/home");
       } else {
         alert("Échec de l'authentification");
       }
 
-      localStorage.setItem("authToken", token);
-      setAuthToken(token);
-      navigate("/home");
     } catch (error) {
       console.error("Error logging in:", error.response.data);
       alert("Login failed, please check your email and password");

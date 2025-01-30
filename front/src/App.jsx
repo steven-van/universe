@@ -12,8 +12,9 @@ import Signup from "./pages/Signup.jsx";
 function App() {
   return (
     <BrowserRouter>
-      <SocketProvider>
+      
       <AuthProvider>
+      <SocketProvider>
         <MenuProvider>
           <Routes>
             <Route path="login" element={<Login />} />
@@ -28,8 +29,8 @@ function App() {
             />
           </Routes>
         </MenuProvider>
+        </SocketProvider>
       </AuthProvider>
-      </SocketProvider>
     </BrowserRouter>
   );
 }

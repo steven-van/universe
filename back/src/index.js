@@ -30,6 +30,7 @@ app.use(express.json());
 app.use(authRoutes);
 app.use(contactRoutes);
 app.use(conversationRoutes);
+app.use(messageRoutes);
 
 try {
   con.authenticate();

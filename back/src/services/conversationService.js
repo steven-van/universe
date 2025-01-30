@@ -46,7 +46,7 @@ exports.getUserConversations = async (userId) => {
     const contactId = conversation.user1_id == userId ? conversation.user2_id : conversation.user1_id;
     const user_info = await User.findOne({
       where: { user_id: contactId },
-      attributes: ['firstname', 'lastname', 'email']
+      attributes: ['user_id', 'firstname', 'lastname', 'email']
     });
   
     return {

@@ -87,12 +87,10 @@ const initializeSocket = (server) => {
 
           // fonction pour récupérer l'userId d'une personne grâce a son id 
         
-          const userId_receiver = data.userId_receiver;
           const message = data.message;
           const sender_id = data.sender_id;
-          const recipient_id = data.recipient_id;
+          const receiver_id = data.receiver_id;
           const conversation_id = data.conversation_id;
-
           const currentDate_message = new Date();
 
           const response = await BodyguardAPI.analyzeMessage(message, currentDate_message);
@@ -102,12 +100,8 @@ const initializeSocket = (server) => {
           // console.log((`${sockets[socket.id]} is trying to send a message.`));
 
           if (recommendedAction == 'REMOVE') {
-            console.log(`Message from ${sockets[socket.id]} to ${receiver} failed: Message refused by Bodyguard because type : ${type} `);
+            console.log(`Message from ${sockets[socket.id]} to ${receiver_id} failed: Message refused by Bodyguard because type : ${type} `);
             
-            socket.to(socket_id_receiver).emit("receive-message", {
-              newMessage
-             });
-
             callback({
               success: false,
               errorMessage: "Attention, veuillez rester bienveillant envers votre prochain",
@@ -115,27 +109,31 @@ const initializeSocket = (server) => {
             return;
           }
           else{
-            socket_id_receiver = users[userId_receiver];           
+            const socket_id_receiver = users[receiver_id];   
+            console.log(socket_id_receiver)        
             sender = sockets[socket.id]
+
 
             if (socket_id_receiver) {
                 
-              console.log(`Message from ${sender} to ${userId_receiver}: ${message}`);
-              //création en base de données
-              const newMessage = await messageService.createmessage({ text_message: message, status_message: type,sender_id: sender_id, receiver_id: recipient_id, conversation_id: conversation_id });
+              console.log(`Message from ${sender} to ${receiver_id}: ${message}`);
 
+              const newMessage = await messageService.createmessage({ text_message: message, status_message: type,sender_id: sender_id, receiver_id: receiver_id, conversation_id: conversation_id });
+              console.log(newMessage)
               socket.to(socket_id_receiver).emit("receive-message", {
-               newMessage
+               newMessage,
+               success: true,
               });
               
               callback({
                 success: true,
+                newMessage : newMessage,
               });
-              console.log(`Message from ${sender} to ${userId_receiver} saved in the database`);
+              console.log(`Message from ${sender} to ${receiver_id} saved in the database`);
             } 
             else {
               // Le destinataire n'est pas connecté
-              console.log(`Message from ${sender} to ${userId_receiver} failed: User not connected`);
+              console.log(`Message from ${sender} to ${receiver_id} failed: User not connected`);
             }
             }
         });
