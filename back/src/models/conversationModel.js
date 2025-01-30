@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const con = require('../../config/connection');
 const User = require('./userModel');
 
-const Message = con.define('Conversation', {
+const Conversation = con.define('Conversation', {
     conversation_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -30,4 +30,4 @@ const Message = con.define('Conversation', {
     timestamps: false, // Désactive la gestion automatique des timestamps
   });
   
-  module.exports = Message;
+  module.exports = Conversation;

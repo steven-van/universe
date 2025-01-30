@@ -10,6 +10,7 @@ const http = require("http");
 const authRoutes = require("./routes/authRoutes");
 const messageRoutes = require('./routes/messageRoutes');
 const contactRoutes = require("./routes/contactRoutes");
+const conversationRoutes = require("./routes/conversationRoutes");
 
 const socket = require("./socket");
 
@@ -28,6 +29,7 @@ app.use(express.json());
 
 app.use(authRoutes);
 app.use(contactRoutes);
+app.use(conversationRoutes);
 
 try {
   con.authenticate();

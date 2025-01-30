@@ -1,7 +1,7 @@
 const conversationservice = require("../services/conversationService");
 
 exports.getUserconversations = async (req, res) => {
-    const userId = req.body; // Assure-toi de bien récupérer l'ID utilisateur
+    const { userId } = req.params;
     try {
       const conversations = await conversationservice.getUserConversations(userId);
       res.status(200).json(conversations);

@@ -1,7 +1,7 @@
 const { Op } = require('sequelize');
-const Conversation = require('../models/conversation'); // Modèle Sequelize
+const Conversation = require('../models/conversationModel'); // Modèle Sequelize
+const User = require("../models/userModel");
 
-//get or create a conversation with 
 exports.getOrCreateConversation = async (user1_id,user2_id) => {
   try {
     let conversation = await Conversation.findOne({
@@ -28,17 +28,36 @@ exports.getOrCreateConversation = async (user1_id,user2_id) => {
 };
 
 // return all user conversation in a list
+
 exports.getUserConversations = async (userId) => {
+  
   try {
     const conversations = await Conversation.findAll({
       where: {
-        [Sequelize.Op.or]: [
+        [Op.or]: [
           { user1_id: userId },
           { user2_id: userId },
         ],
       },
+    }
+  );
+
+  const newconvs = await Promise.all(conversations.map(async (conversation) => {
+    const contactId = conversation.user1_id == userId ? conversation.user2_id : conversation.user1_id;
+    const user_info = await User.findOne({
+      where: { user_id: contactId },
+      attributes: ['firstname', 'lastname', 'email']
     });
-    return conversations; // conversation list
+  
+    return {
+      conversation: conversation,
+      user_info: user_info
+    };
+  }));
+  
+  console.log(newconvs);
+  return newconvs;
+  
   } catch (error) {
     throw new Error('Error retrieving conversations: ' + error.message);
   }

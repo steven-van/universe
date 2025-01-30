@@ -1,25 +1,26 @@
 const { Server } = require("socket.io");
 const BodyguardAPI = require("./bodyguardAPI");
 const messageService = require("./services/messageService");
+const conversationService =  require("./services/conversationService");
 
 let io; // Stocke l'instance du serveur Socket.IO
 let = []; // list all 
  
 const users = {}; 
 const sockets = {}; 
-const emails = [];
+const userIds = [];
 
-function handleUserDisconnection(email, socketId) {
-  if (email) {
-    console.log(`${email} is being removed`);
+function handleUserDisconnection(userId, socketId) {
+  if (userId) {
+    console.log(`${userId} is being removed`);
 
-    const index = emails.indexOf(email);
+    const index = userIds.indexOf(userId);
     if (index !== -1) {
-      emails.splice(index, 1);
+      userIds.splice(index, 1);
     }
 
     delete sockets[socketId];
-    delete users[email];
+    delete users[userId];
 
     io.emit("list-connected-users", Object.keys(users));
 
@@ -43,32 +44,33 @@ const initializeSocket = (server) => {
         console.log(`User connected with socket ID: ${socket.id}`);
         
 
-        socket.on("login", (email) => {
-            users[email] = socket.id; // link the email to the socket ID
-            sockets[socket.id] = email; // link the socket ID to the email
-            emails.push(email); // add the email to the list
+        socket.on("login", (userId) => {
+            
+            users[userId] = socket.id; // link the userId to the socket ID
+            sockets[socket.id] = userId; // link the socket ID to the userId
+            userIds.push(userId); // add the userId to the list
             //socket.userId = data.userId;
-            console.log(`${email} logged in with socket ID: ${socket.id}`);
+            console.log(`${userId} logged in with socket ID: ${socket.id}`);
 
             socket.join("default"); // test
 
-            socket.emit('welcome', { email });
+            socket.emit('welcome', { userId });
 
             io.emit("update-user-list", Object.keys(users)); // all user connected
-            console.log(`All connected users : ${emails}`);
+            console.log(`All connected users : ${userIds}`);
           });
 
           // connection error 
           socket.on("disconnect", () => {
-            const email = sockets[socket.id];
+            const userId = sockets[socket.id];
             console.log(`Socket disconnected: ${socket.id}`);
-            handleUserDisconnection(email, socket.id);
+            handleUserDisconnection(userId, socket.id);
           });
         
           // User choose to log out 
-          socket.on("logout", (email) => {
-            console.log(`User logged out: ${email}`);
-            handleUserDisconnection(email, socket.id);
+          socket.on("logout", (userId) => {
+            console.log(`User logged out: ${userId}`);
+            handleUserDisconnection(userId, socket.id);
           });
 
 
@@ -83,7 +85,9 @@ const initializeSocket = (server) => {
 
         socket.on("send-message", async (data, callback ) => {
 
-          const email_receiver = data.email_receiver;
+          // fonction pour récupérer l'userId d'une personne grâce a son id 
+        
+          const userId_receiver = data.userId_receiver;
           const message = data.message;
           const sender_id = data.sender_id;
           const recipient_id = data.recipient_id;
@@ -99,6 +103,10 @@ const initializeSocket = (server) => {
 
           if (recommendedAction == 'REMOVE') {
             console.log(`Message from ${sockets[socket.id]} to ${receiver} failed: Message refused by Bodyguard because type : ${type} `);
+            
+            socket.to(socket_id_receiver).emit("receive-message", {
+              newMessage
+             });
 
             callback({
               success: false,
@@ -107,12 +115,12 @@ const initializeSocket = (server) => {
             return;
           }
           else{
-            socket_id_recipient = users[email_receiver];           
+            socket_id_receiver = users[userId_receiver];           
             sender = sockets[socket.id]
 
             if (socket_id_receiver) {
                 
-              console.log(`Message from ${sender} to ${email_receiver}: ${message}`);
+              console.log(`Message from ${sender} to ${userId_receiver}: ${message}`);
               //création en base de données
               const newMessage = await messageService.createmessage({ text_message: message, status_message: type,sender_id: sender_id, receiver_id: recipient_id, conversation_id: conversation_id });
 
@@ -123,11 +131,11 @@ const initializeSocket = (server) => {
               callback({
                 success: true,
               });
-              console.log(`Message from ${sender} to ${email_receiver} saved in the database`);
+              console.log(`Message from ${sender} to ${userId_receiver} saved in the database`);
             } 
             else {
               // Le destinataire n'est pas connecté
-              console.log(`Message from ${sender} to ${email_receiver} failed: User not connected`);
+              console.log(`Message from ${sender} to ${userId_receiver} failed: User not connected`);
             }
             }
         });
