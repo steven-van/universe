@@ -25,7 +25,7 @@ const ContactInfoSection = ({ contact }) => {
   ];
 
   return (
-    <div className="flex justify-center items-center flex-1 bg-FDFAFA h-full">
+    <div className="flex justify-center items-center flex-1 bg-FDFAFA h-full overflow-y-auto">
       <div className="w-5/6 flex flex-col justify-center items-center">
         <Avatar
           src={profilePic}
@@ -48,7 +48,7 @@ const ContactInfoSection = ({ contact }) => {
           </IconButton>
         </div>
 
-        <div className="w-full space-y-2 overflow-y-auto">
+        <div className="w-full space-y-2">
           {contactInfo.map(({ label, value }) => (
             <InfoField key={label} label={label} text={value} />
           ))}
