@@ -1,6 +1,6 @@
 const contactService = require("../services/contactService");
 
-exports.addContact = async (req, res) => {
+exports.createContact = async (req, res) => {
   const { user_id, contact_id } = req.body;
   try {
     if (!user_id || !contact_id) {
@@ -16,7 +16,7 @@ exports.addContact = async (req, res) => {
     if (await contactService.isContact(user_id, contact_id)) {
       return res.status(400).json({ error: "You are already contacts" });
     }
-    const contact = await contactService.addContact(user_id, contact_id);
+    const contact = await contactService.createContact(user_id, contact_id);
     res.status(201).json(contact);
   } catch (error) {
     res.status(500).json({ message: error.message });

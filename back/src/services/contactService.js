@@ -2,7 +2,7 @@ const { Op } = require("sequelize");
 const Contact = require("../models/contactModel");
 const User = require("../models/userModel");
 
-exports.addContact = async (userId, contactId) => {
+exports.createContact = async (userId, contactId) => {
   const newContact = await Contact.create({
     user_id: userId,
     contact_id: contactId,
