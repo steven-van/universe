@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Avatar, IconButton } from "@mui/material";
 import { Icon } from "@iconify/react";
 import profilePic from "../assets/images/profile_picture.png";
@@ -11,14 +11,11 @@ import { useSocket } from "../contexts/SocketProvider";
 import { useAuth } from "../contexts/AuthProvider";
 import { getConversationMessageService } from "../services/messageService";
 
-
-const ChatSection = ({conversation}) => {
-
+const ChatSection = ({ conversation }) => {
   const { authToken, getUserIdFromToken } = useAuth();
-  const [messagesList, setMessagesList] = useState([
-  ]);
+  const [messagesList, setMessagesList] = useState([]);
 
-  const {socket} = useSocket();
+  const { socket } = useSocket();
   const [message, setMessage] = useState("");
   const conversationInfo = conversation.conversation;
   const userInfo = conversation.user_info;
@@ -36,49 +33,43 @@ const ChatSection = ({conversation}) => {
   };
 
   const handleSend = () => {
-  
     if (message) {
-
       const messageData = {
-        
         message: message,
-        sender_id: user_id, 
+        sender_id: user_id,
         receiver_id: userInfo.user_id,
-        conversation_id: conversationInfo.conversation_id,  // get id_conversation
+        conversation_id: conversationInfo.conversation_id, // get id_conversation
       };
 
       socket.emit("send-message", messageData, (response) => {
-        
         if (response.success) {
-          addMessage(message, user_id, false); 
+          addMessage(message, user_id, false);
         } else {
-          const errorMessage = response.errorMessage
+          const errorMessage = response.errorMessage;
           addMessage(errorMessage, user_id, true); // Optionnel : Afficher l'erreur dans la liste des messages OU notification d'erreur
         }
       });
 
       setMessage("");
-
     }
   };
- 
-  const getConversationMessages = async (conversationInfo) => {
 
-        const messages = await getConversationMessageService(conversationInfo.conversation_id);
-        setMessagesList(messages);
+  const getConversationMessages = async (conversationInfo) => {
+    const messages = await getConversationMessageService(
+      conversationInfo.conversation_id,
+    );
+    setMessagesList(messages);
   };
 
   useEffect(() => {
-
     getConversationMessages(conversationInfo);
 
     if (socket) {
-      
       // on reçoit un message d'un autre socket
       socket.on("receive-message", ({ newMessage }) => {
-        addMessage(newMessage.text_message,newMessage.sender_id, false); //message reçu
+        addMessage(newMessage.text_message, newMessage.sender_id, false); //message reçu
       });
-      
+
       // aucun message n'a été rçu mais une notification d'erreur
       socket.on("error-notification", (notification) => {
         addMessage(notification.text, newMessage.sender_id, true); //notification d'erreur
@@ -100,22 +91,19 @@ const ChatSection = ({conversation}) => {
           sx={{ width: 60, height: 60, borderRadius: "20px" }}
         />
         <div className="flex flex-col">
-          <p className="font-robotoBold">{userInfo.firstname} {userInfo.lastname}</p>
+          <p className="font-robotoBold">
+            {userInfo.firstname} {userInfo.lastname}
+          </p>
           <Status />
         </div>
       </div>
       <div className="flex flex-1 flex-col overflow-y-auto p-7 space-y-2">
         {messagesList.map((message) => {
           if (message.isError === true) {
-            return(
-              <WarningBubble >
-                {message.text_message}
-              </WarningBubble>
-            );
-          }
-          else {
+            return <WarningBubble>{message.text_message}</WarningBubble>;
+          } else {
             return (
-              <MessageBubble isFromMe={ message.sender_id == user_id }>
+              <MessageBubble isFromMe={message.sender_id == user_id}>
                 {message.text_message}
               </MessageBubble>
             );

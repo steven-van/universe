@@ -12,23 +12,22 @@ import Signup from "./pages/Signup.jsx";
 function App() {
   return (
     <BrowserRouter>
-      
       <AuthProvider>
-      <SocketProvider>
-        <MenuProvider>
-          <Routes>
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<Signup />} />
-            <Route
-              path="home"
-              element={
-                <ProtectedRoute>
-                  <Home />
-                </ProtectedRoute>
-              }
-            />
-          </Routes>
-        </MenuProvider>
+        <SocketProvider>
+          <MenuProvider>
+            <Routes>
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<Signup />} />
+              <Route
+                path="home"
+                element={
+                  <ProtectedRoute>
+                    <Home />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </MenuProvider>
         </SocketProvider>
       </AuthProvider>
     </BrowserRouter>

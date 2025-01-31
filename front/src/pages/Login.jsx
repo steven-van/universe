@@ -44,7 +44,9 @@ const Login = () => {
         <div>
           <p className="text-sm text-8F8F8F">
             Don't have an account ?{" "}
-            <CustomLink onClick={() => navigate("/signup")}>Register here</CustomLink>
+            <CustomLink onClick={() => navigate("/signup")}>
+              Register here
+            </CustomLink>
           </p>
         </div>
         <LoginButton onClick={() => login(email, password)} variant="contained">

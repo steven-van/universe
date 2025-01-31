@@ -14,7 +14,7 @@ const AuthProvider = ({ children }) => {
     try {
       const response = await loginService(email, password);
       const { token } = response.data;
-      
+
       if (token) {
         localStorage.setItem("authToken", token);
         setAuthToken(token);
@@ -22,7 +22,6 @@ const AuthProvider = ({ children }) => {
       } else {
         alert("Échec de l'authentification");
       }
-
     } catch (error) {
       console.error("Error logging in:", error.response.data);
       alert("Login failed, please check your email and password");
@@ -32,7 +31,7 @@ const AuthProvider = ({ children }) => {
   const signup = async (user) => {
     try {
       const response = await signupService(user);
-      const { firstname, lastname } = response.data
+      const { firstname, lastname } = response.data;
       alert(`User account ${firstname} ${lastname} created`);
       navigate("/login");
     } catch (error) {
@@ -67,7 +66,9 @@ const AuthProvider = ({ children }) => {
   }, [authToken]);
 
   return (
-    <AuthContext.Provider value={{ authToken, signup, login, logout, getUserIdFromToken }}>
+    <AuthContext.Provider
+      value={{ authToken, signup, login, logout, getUserIdFromToken }}
+    >
       {children}
     </AuthContext.Provider>
   );

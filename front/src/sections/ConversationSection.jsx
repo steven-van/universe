@@ -1,29 +1,27 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { IconButton } from "@mui/material";
 import { CustomTextField } from "../components/CustomTextField";
 import { Icon } from "@iconify/react";
 import Conversation from "../components/Conversation";
 import ChatSection from "./ChatSection";
-import {useAuth} from "../contexts/AuthProvider";
- 
+import { useAuth } from "../contexts/AuthProvider";
+
 import { getUserConversationsService } from "../services/conversationService";
 
 const ConversationSection = () => {
-    const { authToken, getUserIdFromToken } = useAuth();
-    const [conversations, setConversations] = useState([]);
-    const [selectedConversation, setSelectedConversation] = useState(null);
-    
+  const { authToken, getUserIdFromToken } = useAuth();
+  const [conversations, setConversations] = useState([]);
+  const [selectedConversation, setSelectedConversation] = useState(null);
 
-    const getUserConversations = async (token) => {
-      const userId = getUserIdFromToken(token);
-      const conversations = await getUserConversationsService(userId);
-      setConversations(conversations);
-    };
+  const getUserConversations = async (token) => {
+    const userId = getUserIdFromToken(token);
+    const conversations = await getUserConversationsService(userId);
+    setConversations(conversations);
+  };
 
-    useEffect(() => {
-        getUserConversations(authToken);
-      }, []);
-
+  useEffect(() => {
+    getUserConversations(authToken);
+  }, []);
 
   return (
     <>
@@ -41,19 +39,23 @@ const ConversationSection = () => {
             </IconButton>
           </div>
           <div className="flex flex-col mt-4">
-              <div className="min-w-80 flex flex-col mt-4 px-4">
-                { conversations.map((conversation) => {
-                  return (
-                    <button onClick={() => setSelectedConversation(conversation)}>
-                      <Conversation userInfo={conversation.user_info} />
-                    </button>
-                  );
-                })}
-              </div>
+            <div className="min-w-80 flex flex-col mt-4 px-4">
+              {conversations.map((conversation) => {
+                return (
+                  <button onClick={() => setSelectedConversation(conversation)}>
+                    <Conversation userInfo={conversation.user_info} />
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
-      {selectedConversation ? <ChatSection conversation={selectedConversation} /> : <div className="flex-1"></div>}
+      {selectedConversation ? (
+        <ChatSection conversation={selectedConversation} />
+      ) : (
+        <div className="flex-1"></div>
+      )}
     </>
   );
 };

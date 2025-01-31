@@ -9,10 +9,9 @@ const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-
     const userId = getUserIdFromToken(authToken);
 
-    if (authToken){
+    if (authToken) {
       const newSocket = io("http://localhost:8000", {
         withCredentials: true,
       });
@@ -21,10 +20,8 @@ const SocketProvider = ({ children }) => {
 
       newSocket.emit("login", userId);
 
-    return () => newSocket.close();
-
+      return () => newSocket.close();
     }
-
   }, []);
 
   return (
