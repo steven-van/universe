@@ -1,13 +1,20 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
-require('dotenv').config();
+require("dotenv").config();
 
 exports.signup = async (user) => {
   const { firstname, lastname, email, password, birthday, phone } = user;
   const saltRounds = 10; // Arbitrary choice
   const hashedPassword = await bcrypt.hash(password, saltRounds);
-  const newUser = await User.create({ firstname, lastname, email, password: hashedPassword, birthday, phone });
+  const newUser = await User.create({
+    firstname,
+    lastname,
+    email,
+    password: hashedPassword,
+    birthday,
+    phone,
+  });
   return newUser;
 };
 

@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-require('dotenv').config();
+require("dotenv").config();
 
 export const verifyToken = (req, res, next) => {
   const token = req.header("Authorization");
@@ -12,4 +12,3 @@ export const verifyToken = (req, res, next) => {
     res.status(401).json({ error: "Invalid token" });
   }
 };
-
