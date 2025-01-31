@@ -14,20 +14,20 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <SocketProvider>
-          <MenuProvider>
-            <Routes>
-              <Route path="login" element={<Login />} />
-              <Route path="signup" element={<Signup />} />
-              <Route
-                path="home"
-                element={
-                  <ProtectedRoute>
+          <Routes>
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<Signup />} />
+            <Route
+              path="home"
+              element={
+                <ProtectedRoute>
+                  <MenuProvider>
                     <Home />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
-          </MenuProvider>
+                  </MenuProvider>
+                </ProtectedRoute>
+              }
+            />
+          </Routes>
         </SocketProvider>
       </AuthProvider>
     </BrowserRouter>
