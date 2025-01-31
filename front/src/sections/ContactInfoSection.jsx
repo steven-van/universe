@@ -48,7 +48,7 @@ const ContactInfoSection = ({ contact }) => {
           </IconButton>
         </div>
 
-        <div className="w-full space-y-2">
+        <div className="w-full space-y-2 overflow-y-auto">
           {contactInfo.map(({ label, value }) => (
             <InfoField key={label} label={label} text={value} />
           ))}
