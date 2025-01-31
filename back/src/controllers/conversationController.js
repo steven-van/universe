@@ -12,11 +12,11 @@ exports.getUserConversations = async (req, res) => {
 };
 
 exports.createConversation = async (req, res) => {
-  const { user1_id, user2_id } = req.body;
+  const { user1Id, user2Id } = req.body;
   try {
     const conversation = await conversationservice.createConversation(
-      user1_id,
-      user2_id,
+      user1Id,
+      user2Id,
     );
     res.status(200).json(conversation);
   } catch (error) {
