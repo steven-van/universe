@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        return decoded.user_id;
+        return decoded.userId;
       } catch (err) {
         console.error("Invalid token", err);
         return null;
