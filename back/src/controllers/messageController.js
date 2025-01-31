@@ -24,11 +24,11 @@ exports.createMessage = async (req, res) => {
 };
 
 exports.getConversationMessages = async (req, res) => {
-  const { conversationId } = req.params;
+  const { id } = req.params;
 
   try {
     const messages =
-      await messageService.getConversationMessages(conversationId);
+      await messageService.getConversationMessages(id);
     res.status(200).json(messages);
   } catch (error) {
     console.error("Erreur lors de la récupération des messages :", error);

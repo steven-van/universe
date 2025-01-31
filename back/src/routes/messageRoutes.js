@@ -3,7 +3,7 @@ const router = express.Router();
 const messageController = require("../controllers/messageController");
 
 router.get(
-  "/messages/:conversationId",
+  "/messages/:id",
   messageController.getConversationMessages,
 );
 

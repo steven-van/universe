@@ -1,10 +1,10 @@
 const conversationservice = require("../services/conversationService");
 
-exports.getUserconversations = async (req, res) => {
-  const { userId } = req.params;
+exports.getUserConversations = async (req, res) => {
+  const { id } = req.params;
   try {
     const conversations =
-      await conversationservice.getUserConversations(userId);
+      await conversationservice.getUserConversations(id);
     res.status(200).json(conversations);
   } catch (error) {
     res.status(500).json({ error: error.message });

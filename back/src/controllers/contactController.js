@@ -24,12 +24,12 @@ exports.addContact = async (req, res) => {
 };
 
 exports.getContacts = async (req, res) => {
-  const { userId } = req.params;
+  const { id } = req.params;
   try {
-    if (!userId) {
-      return res.status(400).json({ error: "user_id is required" });
+    if (!id) {
+      return res.status(400).json({ error: "Id is required" });
     }
-    const contacts = await contactService.getContacts(userId);
+    const contacts = await contactService.getContacts(id);
     res.status(200).json(contacts);
   } catch (error) {
     res.status(500).json({ message: error.message });
