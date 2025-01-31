@@ -110,7 +110,7 @@ const initializeSocket = (server) => {
         if (socket_id_receiver) {
           console.log(`Message from ${sender} to ${receiver_id}: ${message}`);
 
-          const newMessage = await messageService.createmessage({
+          const newMessage = await messageService.createMessage({
             text_message: message,
             status_message: type,
             sender_id: sender_id,

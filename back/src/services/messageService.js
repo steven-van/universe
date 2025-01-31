@@ -1,6 +1,6 @@
 const Message = require("../models/messageModel");
 
-exports.createmessage = async ({
+exports.createMessage = async ({
   text_message,
   status_message,
   sender_id,

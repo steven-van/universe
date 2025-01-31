@@ -8,7 +8,7 @@ exports.createMessage = async (req, res) => {
       return res.status(400).json({ error: "Tous les champs sont requis." });
     }
 
-    const newMessage = messageService.createmessage({
+    const newMessage = messageService.createMessage({
       text_message,
       sender_id,
       receiver_id,
