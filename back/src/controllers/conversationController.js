@@ -11,10 +11,10 @@ exports.getUserConversations = async (req, res) => {
   }
 };
 
-exports.getOrCreateConversation = async (req, res) => {
+exports.createConversation = async (req, res) => {
   const { user1_id, user2_id } = req.body;
   try {
-    const conversation = await conversationservice.getOrCreateConversation(
+    const conversation = await conversationservice.createConversation(
       user1_id,
       user2_id,
     );
