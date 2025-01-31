@@ -1,8 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-const MessageBubble = ({ children, fromMe }) => {
-  const [isFromMe] = useState(fromMe);
+const MessageBubble = ({ children, isFromMe }) => {
 
   return (
     <div

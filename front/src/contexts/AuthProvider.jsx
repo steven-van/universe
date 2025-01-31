@@ -13,12 +13,16 @@ const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       const response = await loginService(email, password);
-
       const { token } = response.data;
+      
+      if (token) {
+        localStorage.setItem("authToken", token);
+        setAuthToken(token);
+        navigate("/home");
+      } else {
+        alert("Échec de l'authentification");
+      }
 
-      localStorage.setItem("authToken", token);
-      setAuthToken(token);
-      navigate("/home");
     } catch (error) {
       console.error("Error logging in:", error.response.data);
       alert("Login failed, please check your email and password");

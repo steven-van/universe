@@ -6,12 +6,15 @@ import Home from "./pages/Home.jsx";
 import { MenuProvider } from "./contexts/MenuContext";
 import AuthProvider from "./contexts/AuthProvider";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SocketProvider from "./contexts/SocketProvider.jsx";
 import Signup from "./pages/Signup.jsx";
 
 function App() {
   return (
     <BrowserRouter>
+      
       <AuthProvider>
+      <SocketProvider>
         <MenuProvider>
           <Routes>
             <Route path="login" element={<Login />} />
@@ -26,6 +29,7 @@ function App() {
             />
           </Routes>
         </MenuProvider>
+        </SocketProvider>
       </AuthProvider>
     </BrowserRouter>
   );

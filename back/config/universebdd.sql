@@ -53,7 +53,6 @@ INSERT INTO `user` (`user_id`, `firstname`, `lastname`, `email`, `password`, `bi
 (7, 'Steven', 'Vanne', 'vanilla@gmail.com', '$2b$10$Wwnybowlje/m3U2TZ9tiA.6XCrh1TOt17wTA4.J7lilIanzQnn/Vm', '1985-08-20', '07 82 16 92 18', '2025-01-12 13:52:15', '2025-01-12 13:52:15'),
 (8, 'Bastien', 'récré', 'maracasse@gmail.com', '$2b$10$9WCjo75v.uo1959nntyeluoUsaUjxdQvKfL3kBbYuGBkt19U0EasW', '1992-11-30', '07 82 16 92 18', '2025-01-12 13:52:49', '2025-01-12 13:52:49'),
 (9, 'Louis', '41', 'pasdechance@gmail.com', '$2b$10$GdkGUYr5Cq6M.jNa5QuDN.U/g2T44KhpoNtpY9po5aCKGKrm4JfJS', '1988-02-25', '07 82 16 92 18', '2025-01-12 13:54:32', '2025-01-12 13:54:32');
-COMMIT;
 
 -- Data dump for table contact
 INSERT INTO `contact` (`user_id`, `contact_id`, `created_at`, `updated_at`) VALUES
@@ -61,3 +60,77 @@ INSERT INTO `contact` (`user_id`, `contact_id`, `created_at`, `updated_at`) VALU
 (6, 8, '2025-01-12 14:01:00', '2025-01-12 14:01:00'),  -- Nana SIU and Bastien récré
 (7, 9, '2025-01-12 14:02:00', '2025-01-12 14:02:00'),  -- Steven Vanne and Louis41
 (8, 6, '2025-01-12 14:03:00', '2025-01-12 14:03:00');  -- Bastien récré and Nana SIU
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE IF NOT EXISTS `message` (
+  `message_id` INT NOT NULL AUTO_INCREMENT,
+  `text_message` TEXT NOT NULL,
+  `date_message` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `status_message` VARCHAR(255) DEFAULT NULL,
+  `sender_id` INT NOT NULL,
+  `receiver_id` INT NOT NULL,
+  `conversation_id` INT NOT NULL,
+  PRIMARY KEY (`message_id`),
+  FOREIGN KEY (`sender_id`) REFERENCES `user`(`user_id`),
+  FOREIGN KEY (`receiver_id`) REFERENCES `user`(`user_id`),
+  INDEX (`conversation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+
+--
+-- Déchargement des données de la table `message`
+--
+
+INSERT INTO `message` (`message_id`, `text_message`, `date_message`, `status_message`, `sender_id`, `receiver_id`, `conversation_id`) VALUES
+-- Message entre Nana SIU et Steven Vanne
+(1, 'Steven j`taime pas', '2025-01-12 14:10:00', NULL, 6, 7, 1),
+(2, 'Nana casse toi la puante', '2025-01-12 14:12:00', NULL, 7, 6, 1),
+
+-- Message entre Bastien récré et Louis41
+(3, 'Louis j`ai encore ajouté 100 euros sur cardmarket', '2025-01-12 15:00:00', NULL, 8, 9, 2),
+(4, 'Bastien là je trouve que tu abuses quand même t`auras pas Amphinobi ', '2025-01-12 15:05:00', NULL, 9, 8, 2),
+
+-- Message entre Steven Vanne et Bastien récré
+(5, 'Bastien viens on va voir KISS OF LIFE', '2025-01-12 16:00:00', NULL, 7, 8, 3),
+(6, 'Vsy quand tu veux on va matter des boules', '2025-01-12 16:15:00', NULL, 8, 7, 3),
+
+-- Message entre Nana SIU et Louis41
+(7, 'Louis, viens me faire des bisous sinon je boude !', '2025-01-12 16:30:00', NULL, 6, 9, 4),
+(8, 'Ca yèst les meufs que ça prend la tête pour rien..', '2025-01-12 16:40:00', NULL, 9, 6, 4);
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `conversation`
+--
+
+DROP TABLE IF EXISTS `conversation`;
+CREATE TABLE IF NOT EXISTS `conversation`(
+  `conversation_id` INT NOT NULL AUTO_INCREMENT,
+  `user1_id` INT NOT NULL,
+  `user2_id` INT NOT NULL,
+  PRIMARY KEY (`conversation_id`),
+  FOREIGN KEY (`user1_id`) REFERENCES `user`(`user_id`),
+  FOREIGN KEY (`user2_id`) REFERENCES `user`(`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf16 COLLATE=utf16_bin;
+
+--
+-- Déchargement des données de la table `conversation`
+--
+
+INSERT INTO `conversation` (`conversation_id`, `user1_id`, `user2_id`) VALUES
+-- Conversation entre nana et steven
+(1, 6, 7),
+-- Conversation entre Bastien et Louis
+(2, 8, 9),
+-- Conversation entre Steven et Bastien
+(3, 7, 8),
+-- Conversation entre Nana et Louis
+(4, 6, 9);
+COMMIT;

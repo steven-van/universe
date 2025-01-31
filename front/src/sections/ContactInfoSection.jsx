@@ -25,7 +25,7 @@ const ContactInfoSection = ({ contact }) => {
   ];
 
   return (
-    <div className="flex justify-center items-center flex-1 bg-FDFAFA h-full">
+    <div className="flex justify-center items-center flex-1 bg-FDFAFA h-full overflow-y-auto">
       <div className="w-5/6 flex flex-col justify-center items-center">
         <Avatar
           src={profilePic}
