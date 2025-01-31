@@ -1,8 +1,8 @@
-const { Sequelize } = require('sequelize');
+const { Sequelize } = require("sequelize");
 
-const con = new Sequelize('universebdd', 'root', "", {
-    host: 'localhost',
-    dialect: 'mysql'
-  }); 
+const con = new Sequelize("universebdd", "root", "", {
+  host: "localhost",
+  dialect: "mysql",
+});
 
-module.exports= con
+module.exports = con;

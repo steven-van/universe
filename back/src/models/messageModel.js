@@ -1,8 +1,10 @@
-const { DataTypes } = require('sequelize');
-const con = require('../../config/connection');
-const Conversation = require('./conversationModel');
+const { DataTypes } = require("sequelize");
+const con = require("../../config/connection");
+const Conversation = require("./conversationModel");
 
-const Message = con.define('Message', {
+const Message = con.define(
+  "Message",
+  {
     message_id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -37,9 +39,11 @@ const Message = con.define('Message', {
         key: "conversation_id",
       },
     },
-  }, {
-    tableName: 'message', // Message table name
+  },
+  {
+    tableName: "message", // Message table name
     timestamps: false,
-  });
-  
-  module.exports = Message;
+  },
+);
+
+module.exports = Message;

@@ -15,7 +15,7 @@ exports.login = async (req, res) => {
 
   try {
     const token = await authService.login({ email, password });
-    
+
     return res.status(200).json({ token });
   } catch (error) {
     if (error.message === "User not found") {
