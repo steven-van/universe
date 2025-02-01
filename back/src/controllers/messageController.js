@@ -27,8 +27,7 @@ exports.getConversationMessages = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const messages =
-      await messageService.getConversationMessages(id);
+    const messages = await messageService.getConversationMessages(id);
     res.status(200).json(messages);
   } catch (error) {
     console.error("Erreur lors de la récupération des messages :", error);

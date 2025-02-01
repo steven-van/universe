@@ -11,7 +11,7 @@ exports.createConversation = async (user1Id, user2Id) => {
 
     return conversation;
   } catch (error) {
-    throw new Error("Error in createConversation: " + error.message);
+    throw new Error("Error in creating conversation: " + error.message);
   }
 };
 
@@ -38,7 +38,7 @@ exports.getUserConversations = async (userId) => {
           conversation: conversation,
           user_info: user_info,
         };
-      })
+      }),
     );
 
     return newconvs;
