@@ -1,8 +1,6 @@
 import React from "react";
-import { useState } from "react";
 
 const MessageBubble = ({ children, isFromMe }) => {
-
   return (
     <div
       className={`max-w-2/5 md:max-w-3/5 ${

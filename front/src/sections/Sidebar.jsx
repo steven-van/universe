@@ -59,24 +59,15 @@ const Sidebar = () => {
         )}
       </div>
       <div className="flex flex-col items-center justify-center space-y-8">
-
-          <IconButton
-            color="inherit"
-          >
-            <Icon icon="solar:info-circle-linear" width="30" height="30" />
-          </IconButton>
-          <IconButton
-            color="inherit"
-          >
-            <Icon icon="solar:settings-linear" width="30" height="30" />
-          </IconButton>
-          <IconButton
-            onClick={() => logout()}
-            color="inherit"
-          >
-            <Icon icon="solar:logout-2-outline" width="30" height="30" />
-          </IconButton>
-          
+        <IconButton color="inherit">
+          <Icon icon="solar:info-circle-linear" width="30" height="30" />
+        </IconButton>
+        <IconButton color="inherit">
+          <Icon icon="solar:settings-linear" width="30" height="30" />
+        </IconButton>
+        <IconButton onClick={() => logout()} color="inherit">
+          <Icon icon="solar:logout-2-outline" width="30" height="30" />
+        </IconButton>
       </div>
     </div>
   );

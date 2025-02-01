@@ -8,17 +8,16 @@ const cors = require("cors");
 const http = require("http");
 
 const authRoutes = require("./routes/authRoutes");
-const messageRoutes = require('./routes/messageRoutes');
+const messageRoutes = require("./routes/messageRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const conversationRoutes = require("./routes/conversationRoutes");
 
 const socket = require("./socket");
 
-
 app.use(
   cors({
     origin: "http://localhost:5173",
-  })
+  }),
 );
 
 const httpserver = http.createServer(app);
@@ -49,4 +48,3 @@ try {
 } catch (error) {
   console.log("Unable to connect to the database:", error);
 }
-

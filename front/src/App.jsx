@@ -12,10 +12,8 @@ import Signup from "./pages/Signup.jsx";
 function App() {
   return (
     <BrowserRouter>
-      
       <AuthProvider>
-      <SocketProvider>
-        <MenuProvider>
+        <SocketProvider>
           <Routes>
             <Route path="login" element={<Login />} />
             <Route path="signup" element={<Signup />} />
@@ -23,12 +21,13 @@ function App() {
               path="home"
               element={
                 <ProtectedRoute>
-                  <Home />
+                  <MenuProvider>
+                    <Home />
+                  </MenuProvider>
                 </ProtectedRoute>
               }
             />
           </Routes>
-        </MenuProvider>
         </SocketProvider>
       </AuthProvider>
     </BrowserRouter>

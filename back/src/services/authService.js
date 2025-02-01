@@ -1,13 +1,20 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
-require('dotenv').config();
+require("dotenv").config();
 
 exports.signup = async (user) => {
   const { firstname, lastname, email, password, birthday, phone } = user;
   const saltRounds = 10; // Arbitrary choice
   const hashedPassword = await bcrypt.hash(password, saltRounds);
-  const newUser = await User.create({ firstname, lastname, email, password: hashedPassword, birthday, phone });
+  const newUser = await User.create({
+    firstname,
+    lastname,
+    email,
+    password: hashedPassword,
+    birthday,
+    phone,
+  });
   return newUser;
 };
 
@@ -25,7 +32,7 @@ exports.login = async ({ email, password }) => {
   }
 
   // Generate JWT
-  const token = jwt.sign({ user_id: user.user_id }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET, {
     expiresIn: "1h",
   });
 

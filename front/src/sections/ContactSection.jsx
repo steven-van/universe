@@ -62,18 +62,22 @@ const ContactSection = () => {
             </button>
           </div>
           <div className="min-w-80 flex flex-col mt-4 px-4">
-          {activeItem === CONTACTS_MENU.CONTACTS &&
-          contacts.map((contact) => {
-            return (
-              <button onClick={() => setSelectedContact(contact)}>
-                <Contact contact={contact} />
-              </button>
-            );
-          })}
+            {activeItem === CONTACTS_MENU.CONTACTS &&
+              contacts.map((contact) => {
+                return (
+                  <button onClick={() => setSelectedContact(contact)}>
+                    <Contact contact={contact} />
+                  </button>
+                );
+              })}
           </div>
         </div>
       </div>
-      {selectedContact ? <ContactInfoSection contact={selectedContact} /> : <div className="flex-1"></div>}
+      {selectedContact ? (
+        <ContactInfoSection contact={selectedContact} />
+      ) : (
+        <div className="flex-1"></div>
+      )}
     </>
   );
 };

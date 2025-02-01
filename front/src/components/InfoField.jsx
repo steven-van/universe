@@ -1,6 +1,6 @@
 import React from "react";
 
-const InfoField = ({label, text}) => {
+const InfoField = ({ label, text }) => {
   return (
     <div className="rounded-md bg-white px-6 py-4">
       <p className="text-8F8F8F text-sm">{label}</p>

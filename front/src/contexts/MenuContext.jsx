@@ -7,7 +7,7 @@ export const MenuProvider = ({ children }) => {
   const [activeItem, setActiveItem] = useState(SIDEBAR_MENU.CONVERSATIONS);
 
   return (
-    <MenuContext.Provider value={[ activeItem, setActiveItem ]}>
+    <MenuContext.Provider value={[activeItem, setActiveItem]}>
       {children}
     </MenuContext.Provider>
   );
