@@ -22,7 +22,8 @@ const SocketProvider = ({ children }) => {
 
       return () => newSocket.close();
     }
-  }, []);
+
+  }, [authToken]);
 
   return (
     <SocketContext.Provider value={{ socket }}>
