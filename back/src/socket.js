@@ -76,12 +76,8 @@ const initializeSocket = (server) => {
 
     socket.on("send-message", async (data, callback) => {
       // fonction pour récupérer l'userId d'une personne grâce a son id
-
-      const message = data.message;
-      const sender_id = data.sender_id;
-      const receiver_id = data.receiver_id;
-      const conversation_id = data.conversation_id;
-      const currentDate_message = new Date();
+      const { message, sender_id, receiver_id, conversation_id } = data;
+      const currentDate_message = new Date().now();
 
       const response = await BodyguardAPI.analyzeMessage(
         message,
@@ -117,7 +113,6 @@ const initializeSocket = (server) => {
             receiver_id: receiver_id,
             conversation_id: conversation_id,
           });
-          console.log(newMessage);
           socket.to(socket_id_receiver).emit("receive-message", {
             newMessage,
             success: true,
